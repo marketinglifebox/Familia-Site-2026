@@ -1,0 +1,14 @@
+{
+  "name": "familia-lifebox-2026",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page Familia Lifebox - replica pixel-perfect do design original",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --minify",
+    "dev": "tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch",
+    "serve": "npx --yes serve ."
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
