@@ -38,6 +38,7 @@
   function centraliza() {
     medir();
     caixa.scrollLeft = umBloco - 124;
+    pinta();
   }
 
   function reenquadra() {
@@ -45,7 +46,38 @@
     if (caixa.scrollLeft < umBloco * 0.5)      caixa.scrollLeft += umBloco;
     else if (caixa.scrollLeft > umBloco * 1.5) caixa.scrollLeft -= umBloco;
   }
-  caixa.addEventListener('scroll', reenquadra, { passive: true });
+  caixa.addEventListener('scroll', function () {
+    reenquadra();
+    agenda();
+  }, { passive: true });
+
+  /* --- laterais desfocadas ---------------------------------------------- */
+  /* quanto mais perto da borda, mais desfocado e mais apagado o cartao;
+     como isso e recalculado a cada quadro, o efeito corre junto do arrasto */
+  var LARGURA = 1512;          /* largura do palco */
+  var ZONA    = 430;           /* faixa, em px de projeto, onde o efeito age */
+  var MAX     = 12;            /* desfoque maximo, em px */
+  var cartoes = Array.prototype.slice.call(trilho.children);
+  var pedido  = 0;
+
+  function pinta() {
+    pedido = 0;
+    var rolagem = caixa.scrollLeft;
+    for (var i = 0; i < cartoes.length; i++) {
+      var c = cartoes[i];
+      var meio = c.offsetLeft + c.offsetWidth / 2 - rolagem;
+      var borda = Math.min(meio, LARGURA - meio);
+      var t = borda >= ZONA ? 0 : (borda <= 0 ? 1 : (ZONA - borda) / ZONA);
+      t = t * t;                                   /* comeca suave */
+      c.style.setProperty('--desfoque', (t * MAX).toFixed(2) + 'px');
+      c.style.setProperty('--esmaece', (1 - t * 0.55).toFixed(3));
+    }
+  }
+
+  function agenda() {
+    if (pedido) return;
+    pedido = window.requestAnimationFrame ? requestAnimationFrame(pinta) : setTimeout(pinta, 16);
+  }
 
   /* --- arrastar com o ponteiro ------------------------------------------ */
   /* o palco inteiro é escalado, então o deslocamento do ponteiro precisa ser
@@ -101,6 +133,6 @@
   });
 
   centraliza();
-  window.addEventListener('resize', function () { medir(); }, { passive: true });
+  window.addEventListener('resize', function () { medir(); agenda(); }, { passive: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(centraliza);
 })();

@@ -1070,6 +1070,26 @@ img,svg{
   letter-spacing:-0.2px;
 }
 
+/* --- laterais desfocadas ---------------------------------------------
+     Cada cartao ganha desfoque e transparencia conforme se aproxima das
+     bordas do carrossel; como as variaveis sao escritas a cada quadro da
+     rolagem, o efeito acompanha o arrasto. --------------------------------- */
+
+.benef-card{
+  --desfoque:0px;
+  --esmaece:1;
+  filter:blur(var(--desfoque));
+  opacity:var(--esmaece);
+}
+
+.benef-carrossel.arrastando .benef-card{
+  will-change:filter, opacity;
+}
+
+.benef-carrossel.\!arrastando .benef-card{
+  will-change:filter, opacity !important;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
