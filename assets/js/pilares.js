@@ -10,14 +10,15 @@
   'use strict';
 
   /* Foto do círculo grande para cada pilar.
-     AMBIENTE usa a foto do documento original; as outras três ficam com ela
-     até chegarem os arquivos definitivos — basta trocar o caminho aqui. */
+     Enquanto o arquivo definitivo não existir, a camada cai de volta para a
+     foto padrão (a do documento original) — basta soltar os .jpg na pasta
+     assets/img/ com estes nomes que eles entram sozinhos. */
+  var PADRAO = 'assets/img/pilar-main.jpg';
   var FOTOS = {
-    padrao:      'assets/img/pilar-main.jpg',
     ambiente:    'assets/img/pilar-main.jpg',
-    agilidade:   'assets/img/pilar-main.jpg',
-    produto:     'assets/img/pilar-main.jpg',
-    atendimento: 'assets/img/pilar-main.jpg'
+    agilidade:   'assets/img/pilar-agilidade.jpg',
+    produto:     'assets/img/pilar-produto.jpg',
+    atendimento: 'assets/img/pilar-atendimento.jpg'
   };
 
   var pilares = Array.prototype.slice.call(document.querySelectorAll('.pilar'));
@@ -31,6 +32,7 @@
   function trocaFoto(src) {
     if (frente.getAttribute('src') === src) return;
     var fundo = (frente === camadaA) ? camadaB : camadaA;
+    fundo.onerror = function () { this.onerror = null; this.src = PADRAO; };
     fundo.setAttribute('src', src);
     /* deixa o navegador aplicar o src antes de cruzar as camadas */
     requestAnimationFrame(function () {
@@ -47,7 +49,7 @@
     pilares.forEach(function (p) {
       p.setAttribute('aria-pressed', String(p === botao));
     });
-    trocaFoto(botao ? (FOTOS[botao.dataset.pilar] || FOTOS.padrao) : FOTOS.padrao);
+    trocaFoto(botao ? (FOTOS[botao.dataset.pilar] || PADRAO) : PADRAO);
   }
 
   pilares.forEach(function (p) {
