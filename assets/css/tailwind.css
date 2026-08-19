@@ -709,6 +709,12 @@ img,svg{
   height:96px;
 }
 
+/* variante monocromatica creme (cabecalho verde da pagina "Quem somos") */
+
+.logo--cream .logo-familia{
+  color:#FDF6EF;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }

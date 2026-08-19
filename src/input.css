@@ -122,6 +122,8 @@
   }
   .logo .logo-lifebox{ position:absolute; left:-1px; top:34px; width:169px; height:54px; }
   .logo .logo-mark   { position:absolute; left:171px; top:-6px; width:99px;  height:96px; }
+  /* variante monocromatica creme (cabecalho verde da pagina "Quem somos") */
+  .logo--cream .logo-familia{ color:#FDF6EF; }
 
   .sr-only-abs{ position:absolute; width:1px; height:1px; padding:0; margin:-1px;
     overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
