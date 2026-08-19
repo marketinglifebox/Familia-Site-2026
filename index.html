@@ -79,23 +79,25 @@
   <section id="habitos-rituais">
     <h2 class="t cond font-bold text-orange left-[863px] top-[1101.7px] text-[80.58px] tracking-[-0.44px]">NOSSOS PILARES</h2>
 
-    <img src="assets/img/pilar-a.jpg"    alt="" class="absolute left-[105px] top-[1454px] w-[102px] h-[101px] rounded-full object-cover">
-    <img src="assets/img/pilar-b.jpg"    alt="" class="absolute left-[633px] top-[1386px] w-[161px] h-[161px] rounded-full object-cover">
-    <img src="assets/img/pilar-main.jpg" alt="Salão da loja Lifebox" class="absolute left-[85px] top-[1475px] w-[620px] h-[632px] rounded-full object-cover">
-    <img src="assets/img/pilar-c.jpg"    alt="" class="absolute left-[598px] top-[2033px] w-[176px] h-[175px] rounded-full object-cover">
+    <img src="assets/img/pilar-a.jpg" alt="" class="absolute left-[105px] top-[1454px] w-[102px] h-[101px] rounded-full object-cover">
+    <img src="assets/img/pilar-b.jpg" alt="" class="absolute left-[633px] top-[1386px] w-[161px] h-[161px] rounded-full object-cover">
 
-    <div class="absolute left-[907px] top-[1529px] w-[547px] h-[108px] bg-orange rounded-tl-[52px]"></div>
-    <span class="t geo font-medium text-cream left-[1138px] top-[1556.7px] text-[54.52px] tracking-[2.6px]">AMBIENTE</span>
+    <!-- circulo grande: a foto troca conforme o pilar selecionado -->
+    <div class="pilar-foto left-[85px] top-[1475px] w-[620px] h-[632px]" id="pilarFoto">
+      <img id="pilarFotoA" src="assets/img/pilar-main.jpg" alt="Salão da loja Lifebox">
+      <img id="pilarFotoB" src="assets/img/pilar-main.jpg" alt="" class="oculta" aria-hidden="true">
+    </div>
 
-    <div class="absolute left-[844px] top-[1669px] w-[611px] h-[120px] rounded-br-[55px]"
-         style="background:linear-gradient(90deg,#E86532 0%,#E86532 45%,#EB7C25 100%)"></div>
-    <span class="t geo font-medium text-cream left-[885px] top-[1696.3px] text-[63.13px] tracking-[1.4px]">AGILIDADE</span>
+    <img src="assets/img/pilar-c.jpg" alt="" class="absolute left-[598px] top-[2033px] w-[176px] h-[175px] rounded-full object-cover">
 
-    <div class="absolute left-[907px] top-[1830px] w-[547px] h-[108px] bg-orange rounded-tl-[52px]"></div>
-    <span class="t geo font-medium text-cream left-[1152px] top-[1857.7px] text-[54.52px] tracking-[0.93px]">PRODUTO</span>
-
-    <div class="absolute left-[907px] top-[1970px] w-[547px] h-[107px] bg-orange rounded-bl-[52px]"></div>
-    <span class="t geo font-medium text-cream left-[1030px] top-[1993.7px] text-[54.52px] tracking-[1.087px]">ATENDIMENTO</span>
+    <!-- pilulas: botoes. Sem selecao ficam as quatro iguais; a selecionada
+         cresce, inverte o lado e troca a foto do circulo. -->
+    <div role="group" aria-label="Nossos pilares">
+      <button class="pilar" type="button" aria-pressed="false" data-pilar="ambiente"    style="--pr:33px;--cy:1583px;--ls:2.6px"><span class="pilar-rotulo">AMBIENTE</span></button>
+      <button class="pilar" type="button" aria-pressed="false" data-pilar="agilidade"   style="--pl:41px;--cy:1729px;--ls:1.4px"><span class="pilar-rotulo">AGILIDADE</span></button>
+      <button class="pilar" type="button" aria-pressed="false" data-pilar="produto"     style="--pr:36px;--cy:1884px;--ls:0.93px"><span class="pilar-rotulo">PRODUTO</span></button>
+      <button class="pilar" type="button" aria-pressed="false" data-pilar="atendimento" style="--pr:32px;--cy:2023.5px;--ls:1.087px"><span class="pilar-rotulo">ATENDIMENTO</span></button>
+    </div>
   </section>
 
   <!-- ====================================================================
@@ -245,5 +247,6 @@
 </div>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/pilares.js"></script>
 </body>
 </html>

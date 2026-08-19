@@ -189,4 +189,47 @@
   @media (prefers-reduced-motion:reduce){
     .painel,.bolha,.habitos-titulo{ transition-duration:.01ms }
   }
+
+  /* ======================================================================
+     "NOSSOS PILARES" — pilulas clicaveis
+     Estado neutro (nada selecionado): as quatro identicas.
+     Estado ativo: a pilula cresce, inverte o lado (texto a esquerda, canto
+     arredondado embaixo a direita) e recebe o degrade — como no documento.
+     ====================================================================== */
+  .pilar{
+    position:absolute; left:907px; width:547px; height:108px;
+    top:calc(var(--cy) - 54px);
+    display:flex; align-items:center; justify-content:flex-end;
+    padding:0 var(--pr,36px) 0 0; margin:0; border:0; cursor:pointer;
+    background:#E86532; border-radius:52px 0 0 0;
+    transition:left .5s cubic-bezier(.22,.9,.28,1), width .5s cubic-bezier(.22,.9,.28,1),
+               height .5s cubic-bezier(.22,.9,.28,1), top .5s cubic-bezier(.22,.9,.28,1),
+               border-radius .5s cubic-bezier(.22,.9,.28,1), padding .5s cubic-bezier(.22,.9,.28,1);
+  }
+  .pilar-rotulo{
+    font-family:'Poppins', system-ui, sans-serif; font-weight:500; color:#FDF6EF;
+    font-size:54.52px; line-height:1; white-space:nowrap;
+    letter-spacing:var(--ls,0px);
+    transition:font-size .5s cubic-bezier(.22,.9,.28,1);
+  }
+  .pilar[aria-pressed="true"]{
+    left:844px; width:611px; height:120px; top:calc(var(--cy) - 60px);
+    justify-content:flex-start; padding:0 0 0 var(--pl,43px);
+    border-radius:0 0 55px 0;
+    background:linear-gradient(90deg,#E86532 0%,#E86532 45%,#EB7C25 100%);
+  }
+  .pilar[aria-pressed="true"] .pilar-rotulo{ font-size:63.13px; }
+  .pilar:focus-visible{ outline:3px solid #159345; outline-offset:4px; }
+
+  /* foto do circulo grande: duas camadas para o cruzamento suave */
+  .pilar-foto{ position:absolute; border-radius:50%; overflow:hidden; }
+  .pilar-foto img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transition:opacity .5s ease;
+  }
+  .pilar-foto img.oculta{ opacity:0; }
+
+  @media (prefers-reduced-motion:reduce){
+    .pilar,.pilar-rotulo,.pilar-foto img{ transition-duration:.01ms }
+  }
 }

@@ -881,6 +881,92 @@ img,svg{
   }
 }
 
+/* ======================================================================
+     "NOSSOS PILARES" — pilulas clicaveis
+     Estado neutro (nada selecionado): as quatro identicas.
+     Estado ativo: a pilula cresce, inverte o lado (texto a esquerda, canto
+     arredondado embaixo a direita) e recebe o degrade — como no documento.
+     ====================================================================== */
+
+.pilar{
+  position:absolute;
+  left:907px;
+  width:547px;
+  height:108px;
+  top:calc(var(--cy) - 54px);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 var(--pr,36px) 0 0;
+  margin:0;
+  border:0;
+  cursor:pointer;
+  background:#E86532;
+  border-radius:52px 0 0 0;
+  transition:left .5s cubic-bezier(.22,.9,.28,1), width .5s cubic-bezier(.22,.9,.28,1),
+               height .5s cubic-bezier(.22,.9,.28,1), top .5s cubic-bezier(.22,.9,.28,1),
+               border-radius .5s cubic-bezier(.22,.9,.28,1), padding .5s cubic-bezier(.22,.9,.28,1);
+}
+
+.pilar-rotulo{
+  font-family:'Poppins', system-ui, sans-serif;
+  font-weight:500;
+  color:#FDF6EF;
+  font-size:54.52px;
+  line-height:1;
+  white-space:nowrap;
+  letter-spacing:var(--ls,0px);
+  transition:font-size .5s cubic-bezier(.22,.9,.28,1);
+}
+
+.pilar[aria-pressed="true"]{
+  left:844px;
+  width:611px;
+  height:120px;
+  top:calc(var(--cy) - 60px);
+  justify-content:flex-start;
+  padding:0 0 0 var(--pl,43px);
+  border-radius:0 0 55px 0;
+  background:linear-gradient(90deg,#E86532 0%,#E86532 45%,#EB7C25 100%);
+}
+
+.pilar[aria-pressed="true"] .pilar-rotulo{
+  font-size:63.13px;
+}
+
+.pilar:focus-visible{
+  outline:3px solid #159345;
+  outline-offset:4px;
+}
+
+/* foto do circulo grande: duas camadas para o cruzamento suave */
+
+.pilar-foto{
+  position:absolute;
+  border-radius:50%;
+  overflow:hidden;
+}
+
+.pilar-foto img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  -o-object-fit:cover;
+     object-fit:cover;
+  transition:opacity .5s ease;
+}
+
+.pilar-foto img.oculta{
+  opacity:0;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .pilar,.pilar-rotulo,.pilar-foto img{
+    transition-duration:.01ms
+  }
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -983,10 +1069,6 @@ img,svg{
 
 .left-\[1137px\] {
   left: 1137px;
-}
-
-.left-\[1138px\] {
-  left: 1138px;
 }
 
 .left-\[113px\] {
@@ -1197,10 +1279,6 @@ img,svg{
   left: 797px;
 }
 
-.left-\[844px\] {
-  left: 844px;
-}
-
 .left-\[84px\] {
   left: 84px;
 }
@@ -1221,10 +1299,6 @@ img,svg{
   left: 877px;
 }
 
-.left-\[885px\] {
-  left: 885px;
-}
-
 .left-\[897px\] {
   left: 897px;
 }
@@ -1235,10 +1309,6 @@ img,svg{
 
 .left-\[905px\] {
   left: 905px;
-}
-
-.left-\[907px\] {
-  left: 907px;
 }
 
 .left-\[95px\] {
@@ -1293,44 +1363,12 @@ img,svg{
   top: 1475px;
 }
 
-.top-\[1529px\] {
-  top: 1529px;
-}
-
-.top-\[1556\.7px\] {
-  top: 1556.7px;
-}
-
 .top-\[1583px\] {
   top: 1583px;
 }
 
 .top-\[1584px\] {
   top: 1584px;
-}
-
-.top-\[1669px\] {
-  top: 1669px;
-}
-
-.top-\[1696\.3px\] {
-  top: 1696.3px;
-}
-
-.top-\[1830px\] {
-  top: 1830px;
-}
-
-.top-\[1857\.7px\] {
-  top: 1857.7px;
-}
-
-.top-\[1970px\] {
-  top: 1970px;
-}
-
-.top-\[1993\.7px\] {
-  top: 1993.7px;
 }
 
 .top-\[2033px\] {
@@ -1617,14 +1655,6 @@ img,svg{
   height: 106px;
 }
 
-.h-\[107px\] {
-  height: 107px;
-}
-
-.h-\[108px\] {
-  height: 108px;
-}
-
 .h-\[109\.5px\] {
   height: 109.5px;
 }
@@ -1635,10 +1665,6 @@ img,svg{
 
 .h-\[1146px\] {
   height: 1146px;
-}
-
-.h-\[120px\] {
-  height: 120px;
 }
 
 .h-\[1247px\] {
@@ -1833,20 +1859,12 @@ img,svg{
   width: 540px;
 }
 
-.w-\[547px\] {
-  width: 547px;
-}
-
 .w-\[571px\] {
   width: 571px;
 }
 
 .w-\[577px\] {
   width: 577px;
-}
-
-.w-\[611px\] {
-  width: 611px;
 }
 
 .w-\[620px\] {
@@ -1892,16 +1910,8 @@ img,svg{
   border-bottom-left-radius: 144px;
 }
 
-.rounded-bl-\[52px\] {
-  border-bottom-left-radius: 52px;
-}
-
 .rounded-br-\[130px\] {
   border-bottom-right-radius: 130px;
-}
-
-.rounded-br-\[55px\] {
-  border-bottom-right-radius: 55px;
 }
 
 .rounded-tl-\[143px\] {
@@ -1910,10 +1920,6 @@ img,svg{
 
 .rounded-tl-\[144px\] {
   border-top-left-radius: 144px;
-}
-
-.rounded-tl-\[52px\] {
-  border-top-left-radius: 52px;
 }
 
 .rounded-tr-\[130px\] {
@@ -2032,10 +2038,6 @@ img,svg{
   font-size: 49.06px;
 }
 
-.text-\[54\.52px\] {
-  font-size: 54.52px;
-}
-
 .text-\[54\.83px\] {
   font-size: 54.83px;
 }
@@ -2046,10 +2048,6 @@ img,svg{
 
 .text-\[60\.17px\] {
   font-size: 60.17px;
-}
-
-.text-\[63\.13px\] {
-  font-size: 63.13px;
 }
 
 .text-\[80\.58px\] {
@@ -2252,20 +2250,12 @@ img,svg{
   letter-spacing: 0.891px;
 }
 
-.tracking-\[0\.93px\] {
-  letter-spacing: 0.93px;
-}
-
 .tracking-\[1\.02px\] {
   letter-spacing: 1.02px;
 }
 
 .tracking-\[1\.077px\] {
   letter-spacing: 1.077px;
-}
-
-.tracking-\[1\.087px\] {
-  letter-spacing: 1.087px;
 }
 
 .tracking-\[1\.08px\] {
@@ -2310,10 +2300,6 @@ img,svg{
 
 .tracking-\[2\.38px\] {
   letter-spacing: 2.38px;
-}
-
-.tracking-\[2\.6px\] {
-  letter-spacing: 2.6px;
 }
 
 .tracking-\[4\.21px\] {
