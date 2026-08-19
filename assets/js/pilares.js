@@ -32,7 +32,12 @@
   function trocaFoto(src) {
     if (frente.getAttribute('src') === src) return;
     var fundo = (frente === camadaA) ? camadaB : camadaA;
-    fundo.onerror = function () { this.onerror = null; this.src = PADRAO; };
+    fundo.onerror = function () {
+      /* arquivo ainda nao entregue (ou nome diferente): volta para a padrao
+         e avisa no console, para nao falhar em silencio */
+      console.warn('[pilares] foto nao encontrada, usando a padrao:', src);
+      this.onerror = null; this.src = PADRAO;
+    };
     fundo.setAttribute('src', src);
     /* deixa o navegador aplicar o src antes de cruzar as camadas */
     requestAnimationFrame(function () {
