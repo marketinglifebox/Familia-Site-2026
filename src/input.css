@@ -232,4 +232,35 @@
   @media (prefers-reduced-motion:reduce){
     .pilar,.pilar-rotulo,.pilar-foto img{ transition-duration:.01ms }
   }
+
+  /* ======================================================================
+     "BENEFICIOS LIFEBOX" — carrossel
+     Fotos ~18% maiores que no documento; a fileira corre para os dois
+     lados em laco continuo (arrastando, com a roda do mouse ou o dedo).
+     ====================================================================== */
+  .benef-carrossel{
+    position:absolute; left:0; width:1512px;
+    overflow-x:auto; overflow-y:hidden;
+    scrollbar-width:none; -ms-overflow-style:none;
+    cursor:grab; overscroll-behavior-x:contain;
+  }
+  .benef-carrossel::-webkit-scrollbar{ display:none; }
+  .benef-carrossel.arrastando{ cursor:grabbing; }
+
+  .benef-trilho{ display:flex; gap:105px; width:max-content; }
+
+  .benef-card{ position:relative; flex:0 0 auto; width:342px; height:330px; }
+  .benef-foto{ position:absolute; left:0; top:0; width:342px; height:216px; overflow:hidden; }
+  .benef-foto img{ width:100%; height:100%; object-fit:cover; display:block; -webkit-user-drag:none; }
+  .r-bl .benef-foto{ border-radius:0 0 0 170px; }
+  .r-br .benef-foto{ border-radius:0 0 153px 0; }
+  .r-tr .benef-foto{ border-radius:0 153px 0 0; }
+  .r-tl .benef-foto{ border-radius:170px 0 0 0; }
+
+  .benef-titulo,.benef-sub{
+    position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
+    font-family:'Fira Sans Condensed','Arial Narrow',sans-serif; color:#000; line-height:1;
+  }
+  .benef-titulo{ top:241.2px; font-size:54.83px; font-weight:600; letter-spacing:-1px; }
+  .benef-sub   { top:287.4px; font-size:28.3px;  font-weight:400; letter-spacing:-0.2px; }
 }

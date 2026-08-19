@@ -144,40 +144,31 @@
 
     <h2 class="t cond font-bold text-orange left-[300px] top-[3662.7px] text-[109.35px] tracking-[-0.135px]">BENEFÍCIOS LIFEBOX</h2>
 
-    <!-- card 1 (parcialmente fora do quadro, à esquerda) -->
-    <div class="absolute left-[-165px] top-[3935px] w-[290px] h-[183px] overflow-hidden">
-      <img src="assets/img/ben-1.jpg" alt="" class="absolute right-0 top-0 w-[126px] h-[183px] object-cover">
+    <!-- carrossel: corre para os dois lados, em laço contínuo -->
+    <div class="benef-carrossel top-[3902px] h-[330px]" id="benefCarrossel" role="region" aria-label="Benefícios Lifebox">
+      <div class="benef-trilho" id="benefTrilho">
+        <article class="benef-card r-bl">
+          <div class="benef-foto"><img src="assets/img/ben-1.jpg" alt="Subsídio gympass"></div>
+          <span class="benef-titulo">SUBSÍDIO</span><span class="benef-sub">gympass</span>
+        </article>
+        <article class="benef-card r-br">
+          <div class="benef-foto"><img src="assets/img/ben-2.jpg" alt="Hambúrguer artesanal Lifebox"></div>
+          <span class="benef-titulo">ATÉ 50% OFF</span><span class="benef-sub">de desconto no cardápio</span>
+        </article>
+        <article class="benef-card r-tr">
+          <div class="benef-foto"><img src="assets/img/ben-3.jpg" alt="Refeição servida no restaurante"></div>
+          <span class="benef-titulo">REFEIÇÕES</span><span class="benef-sub">durante a jornada</span>
+        </article>
+        <article class="benef-card r-bl">
+          <div class="benef-foto"><img src="assets/img/ben-4.jpg" alt="Seleção de frutas"></div>
+          <span class="benef-titulo">SELEÇÃO DE</span><span class="benef-sub">frutas e bolachas</span>
+        </article>
+        <article class="benef-card r-tl">
+          <div class="benef-foto"><img src="assets/img/ben-5.jpg" alt="Folga no aniversário"></div>
+          <span class="benef-titulo">FOLGA</span><span class="benef-sub">no aniversário</span>
+        </article>
+      </div>
     </div>
-    <span class="t cond font-semibold text-ink left-[-106px] top-[4141.2px] text-[54.83px] tracking-[-1px]">SUBSÍDIO</span>
-    <span class="t cond text-ink left-[-44px] top-[4189.4px] text-[28.3px] tracking-[-0.1px]">gympass</span>
-
-    <!-- card 2 -->
-    <div class="absolute left-[229px] top-[3935px] w-[290px] h-[183px] overflow-hidden rounded-br-[130px]">
-      <img src="assets/img/ben-2.jpg" alt="Hambúrguer artesanal Lifebox" class="w-[290px] h-[183px] object-cover">
-    </div>
-    <span class="t cond font-semibold text-ink left-[232px] top-[4141.2px] text-[54.83px] tracking-[0.257px]">ATÉ 50% OFF</span>
-    <span class="t cond text-ink left-[229px] top-[4189.4px] text-[28.3px] tracking-[0.11px]">de desconto no cardápio</span>
-
-    <!-- card 3 -->
-    <div class="absolute left-[623px] top-[3935px] w-[289px] h-[183px] overflow-hidden rounded-tr-[130px]">
-      <img src="assets/img/ben-3.jpg" alt="Refeição servida no restaurante" class="w-[289px] h-[183px] object-cover">
-    </div>
-    <span class="t cond font-semibold text-ink left-[656px] top-[4141.2px] text-[54.83px] tracking-[-1.28px]">REFEIÇÕES</span>
-    <span class="t cond text-ink left-[664px] top-[4189.4px] text-[28.3px] tracking-[-0.05px]">durante a jornada</span>
-
-    <!-- card 4 -->
-    <div class="absolute left-[1025px] top-[3935px] w-[293px] h-[183px] overflow-hidden rounded-bl-[144px]">
-      <img src="assets/img/ben-4.jpg" alt="Seleção de frutas" class="w-[293px] h-[183px] object-cover">
-    </div>
-    <span class="t cond font-semibold text-ink left-[1025px] top-[4141.2px] text-[54.83px] tracking-[-0.98px]">SELEÇÃO DE</span>
-    <span class="t cond text-ink left-[1054px] top-[4189.4px] text-[28.3px] tracking-[0.19px]">frutas e bolachas</span>
-
-    <!-- card 5 (parcialmente fora do quadro, à direita) -->
-    <div class="absolute left-[1396px] top-[3935px] w-[290px] h-[183px] overflow-hidden rounded-tl-[144px]">
-      <img src="assets/img/ben-5.jpg" alt="" class="absolute left-0 top-0 w-[116px] h-[183px] object-cover">
-    </div>
-    <span class="t cond font-semibold text-ink left-[1473px] top-[4141.2px] text-[54.83px] tracking-[-1px]">FOLGA</span>
-    <span class="t cond text-ink left-[1465px] top-[4189.4px] text-[28.3px] tracking-[-0.1px]">no aniversário</span>
   </section>
 
   <!-- ====================================================================
@@ -248,5 +239,6 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/pilares.js"></script>
+<script src="assets/js/beneficios.js"></script>
 </body>
 </html>

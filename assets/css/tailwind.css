@@ -967,6 +967,109 @@ img,svg{
   }
 }
 
+/* ======================================================================
+     "BENEFICIOS LIFEBOX" — carrossel
+     Fotos ~18% maiores que no documento; a fileira corre para os dois
+     lados em laco continuo (arrastando, com a roda do mouse ou o dedo).
+     ====================================================================== */
+
+.benef-carrossel{
+  position:absolute;
+  left:0;
+  width:1512px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  cursor:grab;
+  overscroll-behavior-x:contain;
+}
+
+.benef-carrossel::-webkit-scrollbar{
+  display:none;
+}
+
+.benef-carrossel.arrastando{
+  cursor:grabbing;
+}
+
+.benef-carrossel.\!arrastando{
+  cursor:grabbing !important;
+}
+
+.benef-trilho{
+  display:flex;
+  gap:105px;
+  width:-moz-max-content;
+  width:max-content;
+}
+
+.benef-card{
+  position:relative;
+  flex:0 0 auto;
+  width:342px;
+  height:330px;
+}
+
+.benef-foto{
+  position:absolute;
+  left:0;
+  top:0;
+  width:342px;
+  height:216px;
+  overflow:hidden;
+}
+
+.benef-foto img{
+  width:100%;
+  height:100%;
+  -o-object-fit:cover;
+     object-fit:cover;
+  display:block;
+  -webkit-user-drag:none;
+}
+
+.r-bl .benef-foto{
+  border-radius:0 0 0 170px;
+}
+
+.r-br .benef-foto{
+  border-radius:0 0 153px 0;
+}
+
+.r-tr .benef-foto{
+  border-radius:0 153px 0 0;
+}
+
+.r-tl .benef-foto{
+  border-radius:170px 0 0 0;
+}
+
+.benef-titulo,.benef-sub{
+  position:absolute;
+  left:0;
+  right:0;
+  text-align:center;
+  white-space:nowrap;
+  font-family:'Fira Sans Condensed','Arial Narrow',sans-serif;
+  color:#000;
+  line-height:1;
+}
+
+.benef-titulo{
+  top:241.2px;
+  font-size:54.83px;
+  font-weight:600;
+  letter-spacing:-1px;
+}
+
+.benef-sub   {
+  top:287.4px;
+  font-size:28.3px;
+  font-weight:400;
+  letter-spacing:-0.2px;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -979,16 +1082,8 @@ img,svg{
   left: 0px;
 }
 
-.left-\[-106px\] {
-  left: -106px;
-}
-
 .left-\[-145px\] {
   left: -145px;
-}
-
-.left-\[-165px\] {
-  left: -165px;
 }
 
 .left-\[-194px\] {
@@ -997,10 +1092,6 @@ img,svg{
 
 .left-\[-42\.7px\] {
   left: -42.7px;
-}
-
-.left-\[-44px\] {
-  left: -44px;
 }
 
 .left-\[1002px\] {
@@ -1015,10 +1106,6 @@ img,svg{
   left: 1010px;
 }
 
-.left-\[1025px\] {
-  left: 1025px;
-}
-
 .left-\[1026px\] {
   left: 1026px;
 }
@@ -1029,10 +1116,6 @@ img,svg{
 
 .left-\[1035px\] {
   left: 1035px;
-}
-
-.left-\[1054px\] {
-  left: 1054px;
 }
 
 .left-\[105px\] {
@@ -1123,18 +1206,6 @@ img,svg{
   left: 1337px;
 }
 
-.left-\[1396px\] {
-  left: 1396px;
-}
-
-.left-\[1465px\] {
-  left: 1465px;
-}
-
-.left-\[1473px\] {
-  left: 1473px;
-}
-
 .left-\[190px\] {
   left: 190px;
 }
@@ -1153,10 +1224,6 @@ img,svg{
 
 .left-\[229px\] {
   left: 229px;
-}
-
-.left-\[232px\] {
-  left: 232px;
 }
 
 .left-\[237px\] {
@@ -1235,20 +1302,8 @@ img,svg{
   left: 622px;
 }
 
-.left-\[623px\] {
-  left: 623px;
-}
-
 .left-\[633px\] {
   left: 633px;
-}
-
-.left-\[656px\] {
-  left: 656px;
-}
-
-.left-\[664px\] {
-  left: 664px;
 }
 
 .left-\[678px\] {
@@ -1325,10 +1380,6 @@ img,svg{
 
 .left-\[991px\] {
   left: 991px;
-}
-
-.right-0 {
-  right: 0px;
 }
 
 .top-0 {
@@ -1483,20 +1534,12 @@ img,svg{
   top: 39.06px;
 }
 
-.top-\[3935px\] {
-  top: 3935px;
+.top-\[3902px\] {
+  top: 3902px;
 }
 
 .top-\[413\.2px\] {
   top: 413.2px;
-}
-
-.top-\[4141\.2px\] {
-  top: 4141.2px;
-}
-
-.top-\[4189\.4px\] {
-  top: 4189.4px;
 }
 
 .top-\[43px\] {
@@ -1691,10 +1734,6 @@ img,svg{
   height: 175px;
 }
 
-.h-\[183px\] {
-  height: 183px;
-}
-
 .h-\[1px\] {
   height: 1px;
 }
@@ -1709,6 +1748,10 @@ img,svg{
 
 .h-\[278px\] {
   height: 278px;
+}
+
+.h-\[330px\] {
+  height: 330px;
 }
 
 .h-\[3px\] {
@@ -1771,20 +1814,12 @@ img,svg{
   width: 1125px;
 }
 
-.w-\[116px\] {
-  width: 116px;
-}
-
 .w-\[120px\] {
   width: 120px;
 }
 
 .w-\[1263px\] {
   width: 1263px;
-}
-
-.w-\[126px\] {
-  width: 126px;
 }
 
 .w-\[144px\] {
@@ -1821,18 +1856,6 @@ img,svg{
 
 .w-\[275px\] {
   width: 275px;
-}
-
-.w-\[289px\] {
-  width: 289px;
-}
-
-.w-\[290px\] {
-  width: 290px;
-}
-
-.w-\[293px\] {
-  width: 293px;
 }
 
 .w-\[297px\] {
@@ -1898,32 +1921,12 @@ img,svg{
   resize: both;
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
 .rounded-full {
   border-radius: 9999px;
 }
 
-.rounded-bl-\[144px\] {
-  border-bottom-left-radius: 144px;
-}
-
-.rounded-br-\[130px\] {
-  border-bottom-right-radius: 130px;
-}
-
 .rounded-tl-\[143px\] {
   border-top-left-radius: 143px;
-}
-
-.rounded-tl-\[144px\] {
-  border-top-left-radius: 144px;
-}
-
-.rounded-tr-\[130px\] {
-  border-top-right-radius: 130px;
 }
 
 .bg-cream {
@@ -1990,10 +1993,6 @@ img,svg{
   font-size: 27.5px;
 }
 
-.text-\[28\.3px\] {
-  font-size: 28.3px;
-}
-
 .text-\[28\.52px\] {
   font-size: 28.52px;
 }
@@ -2036,10 +2035,6 @@ img,svg{
 
 .text-\[49\.06px\] {
   font-size: 49.06px;
-}
-
-.text-\[54\.83px\] {
-  font-size: 54.83px;
 }
 
 .text-\[57\.39px\] {
@@ -2090,20 +2085,12 @@ img,svg{
   line-height: 27px;
 }
 
-.tracking-\[-0\.05px\] {
-  letter-spacing: -0.05px;
-}
-
 .tracking-\[-0\.135px\] {
   letter-spacing: -0.135px;
 }
 
 .tracking-\[-0\.17px\] {
   letter-spacing: -0.17px;
-}
-
-.tracking-\[-0\.1px\] {
-  letter-spacing: -0.1px;
 }
 
 .tracking-\[-0\.44px\] {
@@ -2130,10 +2117,6 @@ img,svg{
   letter-spacing: -0.861px;
 }
 
-.tracking-\[-0\.98px\] {
-  letter-spacing: -0.98px;
-}
-
 .tracking-\[-0\.9px\] {
   letter-spacing: -0.9px;
 }
@@ -2144,10 +2127,6 @@ img,svg{
 
 .tracking-\[-1\.26px\] {
   letter-spacing: -1.26px;
-}
-
-.tracking-\[-1\.28px\] {
-  letter-spacing: -1.28px;
 }
 
 .tracking-\[-1\.302px\] {
@@ -2202,24 +2181,12 @@ img,svg{
   letter-spacing: -3.3px;
 }
 
-.tracking-\[0\.11px\] {
-  letter-spacing: 0.11px;
-}
-
 .tracking-\[0\.145px\] {
   letter-spacing: 0.145px;
 }
 
-.tracking-\[0\.19px\] {
-  letter-spacing: 0.19px;
-}
-
 .tracking-\[0\.224px\] {
   letter-spacing: 0.224px;
-}
-
-.tracking-\[0\.257px\] {
-  letter-spacing: 0.257px;
 }
 
 .tracking-\[0\.41px\] {
