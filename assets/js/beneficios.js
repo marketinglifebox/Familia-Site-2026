@@ -28,6 +28,43 @@
   trilho.insertBefore(bloco(), trilho.firstChild);   /* cópia à esquerda */
   trilho.appendChild(bloco());                       /* cópia à direita  */
 
+  /* --- fotos ainda não entregues --------------------------------------- */
+  /* alguns benefícios ainda não têm foto; nesses o quadro recebe a marca da
+     casa em vez do ícone de imagem quebrada. Roda depois da triplicação para
+     alcançar também as cópias. */
+  Array.prototype.forEach.call(trilho.querySelectorAll('.benef-foto img'), function (img) {
+    function falta() { img.parentNode.classList.add('sem-foto'); }
+    img.addEventListener('error', falta);
+    if (img.complete && !img.naturalWidth) falta();
+  });
+
+  /* --- textos longos --------------------------------------------------- */
+  /* o documento nunca passa de ~346px de tinta num titulo ("SELEÇÃO DE") nem
+     de ~305px num subtitulo; os beneficios novos que passam disso encolhem o
+     suficiente para caber, em vez de invadir o cartao vizinho */
+  var lona = document.createElement('canvas').getContext('2d');
+
+  function tinta(el, e) {
+    lona.font = e.fontStyle + ' ' + e.fontWeight + ' ' + e.fontSize + ' ' + e.fontFamily;
+    var esp = parseFloat(e.letterSpacing) || 0;          /* canvas ignora o tracking */
+    return lona.measureText(el.textContent).width + esp * el.textContent.length;
+  }
+
+  function encolhe(sel, teto) {
+    Array.prototype.forEach.call(trilho.querySelectorAll(sel), function (el) {
+      el.style.fontSize = '';
+      var e = getComputedStyle(el);
+      var w = tinta(el, e);
+      if (w > teto) el.style.fontSize = (parseFloat(e.fontSize) * teto / w).toFixed(2) + 'px';
+    });
+  }
+
+  function ajustaTextos() {
+    encolhe('.benef-titulo', 346);
+    encolhe('.benef-sub', 305);
+  }
+  ajustaTextos();
+
   var umBloco = 0;
   function medir() {
     umBloco = trilho.scrollWidth / 3;
@@ -134,5 +171,8 @@
 
   centraliza();
   window.addEventListener('resize', function () { medir(); agenda(); }, { passive: true });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(centraliza);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
+    ajustaTextos();
+    centraliza();
+  });
 })();

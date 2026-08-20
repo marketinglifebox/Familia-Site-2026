@@ -257,6 +257,16 @@
   .r-tr .benef-foto{ border-radius:0 153px 0 0; }
   .r-tl .benef-foto{ border-radius:170px 0 0 0; }
 
+  /* enquanto a foto definitiva de um beneficio nao chega, o quadro fica com
+     a marca da casa em vez de um icone de imagem quebrada */
+  .benef-foto.sem-foto{ background:linear-gradient(150deg,#F7E7DB 0%,#EE9E77 100%); }
+  .benef-foto.sem-foto img{ display:none; }
+  .benef-foto.sem-foto::after{
+    content:''; position:absolute; inset:0;
+    background:url('../svg/logo-mark-cream.svg') no-repeat center/104px auto;
+    opacity:.62;
+  }
+
   .benef-titulo,.benef-sub{
     position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
     font-family:'Fira Sans Condensed','Arial Narrow',sans-serif; color:#000; line-height:1;
