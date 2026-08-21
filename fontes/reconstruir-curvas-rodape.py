@@ -94,6 +94,23 @@ def largura(P,p,mu,sd):
     d=np.abs(val)/np.hypot(gx,gy)*sd
     return 4*d.mean()
 
+def vertical(ks, grau=4):
+    """riscos quase verticais: x(y) medido linha a linha (o ponto medio da
+       mancha vale ate a ultima linha, ao contrario da espinha, que encolhe
+       meia largura em cada ponta)"""
+    sel=np.isin(lab,ks); d=[]
+    for y in range(H):
+        xs=np.where(sel[y])[0]
+        if len(xs): d.append((y,(xs.min()+xs.max())/2.0,xs.max()-xs.min()+1))
+    d=np.array(d); lg=np.percentile(d[:,2],75)
+    b=d[(d[:,2]>=0.8*lg)&(d[:,2]<=1.25*lg)]
+    p=np.polyfit(b[:,0],b[:,1],grau)
+    r=np.abs(np.polyval(p,b[:,0])-b[:,1])
+    ya,yb=int(b[:,0].min()),int(b[:,0].max())
+    ys=np.arange(ya-FOLGA,yb+FOLGA+1,dtype=float)
+    print('  x(y) grau %d: erro medio %.2f px, maximo %.2f'%(grau,r.mean(),r.max()))
+    return np.stack([np.polyval(p,ys),ys],1), lg
+
 def parabola(ks, C, lg):
     """para os riscos quase verticais, x(y) e uma parabola - mais estavel
        que a conica geral, que degenera quando a curva e quase reta"""
@@ -111,21 +128,29 @@ def parabola(ks, C, lg):
         np.abs(np.polyval(p,b[:,0])-b[:,1]).max()))
     return linha,lg
 
-RETAS=set()     # com a espinha, a conica geral da conta das duas
+FOLGA=12        # px de folga alem da ponta, para a moldura cortar
+VERTICAIS={'R'}   # riscos quase verticais: x(y) e mais estavel que a conica
 
 caminhos=[]
 for g,ks in GRUPOS.items():
     print(g)
-    C,lg=espinha(ks)
-    if g in RETAS:
-        linha,lg2=parabola(ks,C,lg)
+    if g in VERTICAIS:
+        linha,lg=vertical(ks)
     else:
+        C,lg=espinha(ks)
         p,mu,sd=conica(C)
         linha=marcha(p,mu,sd,C.mean(0))
-        # recorta o trecho ao que o documento mostra (os vaos internos ficam)
+        # recorta ao trecho que o documento mostra - os vaos internos ficam.
+        # O corte usa a mancha inteira, nao a espinha: a espinha encolhe meia
+        # largura em cada ponta, e era isso que abria a fresta sob a faixa
+        # laranja. Depois sobra uma folga, para a moldura fazer o corte.
         from scipy.spatial import cKDTree
-        dist,idx=cKDTree(linha).query(C)
-        linha=linha[idx.min():idx.max()+1]
+        arv=cKDTree(linha)
+        ys,xs=np.where(np.isin(lab,ks))
+        _,imk=arv.query(np.stack([xs,ys],1).astype(float))
+        ia=max(0,imk.min()-FOLGA); ib=min(len(linha)-1,imk.max()+FOLGA)
+        linha=linha[ia:ib+1]
+        dist,_=arv.query(C)
         print('  conica: largura %.1f, ajuste a espinha: medio %.2f px, p99 %.2f'%(
             lg,dist.mean(),np.percentile(dist,99)))
     passo=max(1,len(linha)//130)

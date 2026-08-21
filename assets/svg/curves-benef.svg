@@ -2,7 +2,7 @@
   <!-- curvas da faixa de beneficios, reconstruidas como parabolas
        continuas: no PDF achatado elas apareciam cortadas onde as fotos
        e os titulos passavam por cima -->
-  <path d="M1177.09 0 Q932.96 502 1055.87 1004 L1082.87 1004 Q959.96 502 1204.09 0Z"/>
-  <path d="M730.44 0 Q354.2 502 195.14 1004 L226.14 1004 Q385.2 502 761.44 0Z"/>
-  <path d="M-25.95 410 Q89.5 707 -20.62 1004 L5.38 1004 Q115.5 707 0.05 410Z"/>
+  <path d="M1181 -8 Q930.01 502 1057.85 1012 L1084.85 1012 Q957.01 502 1208 -8Z"/>
+  <path d="M736.45 -8 Q352.45 502 192.62 1012 L223.62 1012 Q383.45 502 767.45 -8Z"/>
+  <path d="M-25.95 410 Q91.05 711 -23.63 1012 L2.37 1012 Q117.05 711 0.05 410Z"/>
 </svg>

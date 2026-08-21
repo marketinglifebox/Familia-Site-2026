@@ -47,16 +47,20 @@ def modelo(ks):
         b=b[ok]; p=np.polyfit(b[:,0],b[:,1],2)
     return p,lg,int(b[:,0].min()),int(b[:,0].max()),np.abs(np.polyval(p,b[:,0])-b[:,1])
 
+MARGEM=8          # folga alem da caixa, para a moldura fazer o corte
 novo=np.zeros_like(m)
 for g,ks in grupos.items():
     p,lg,ya,yb,r=modelo(ks)
-    # estende ate onde a curva ainda toca a tela
-    while ya>0 and np.polyval(p,ya-1)+lg/2 > 0 and np.polyval(p,ya-1)-lg/2 < W: ya-=1
-    while yb<H-1 and np.polyval(p,yb+1)+lg/2 > 0 and np.polyval(p,yb+1)-lg/2 < W: yb+=1
+    # estende ate onde a curva ainda toca a tela, e um pouco alem: as pontas
+    # sao cortes de moldura, entao quem deve corta-las e a caixa do desenho,
+    # e nao o fim do caminho - senao sobra uma fresta na emenda com a secao
+    # vizinha
+    while ya>-MARGEM and np.polyval(p,ya-1)+lg/2 > 0 and np.polyval(p,ya-1)-lg/2 < W: ya-=1
+    while yb<H-1+MARGEM and np.polyval(p,yb+1)+lg/2 > 0 and np.polyval(p,yb+1)-lg/2 < W: yb+=1
     print('%s  y %d..%d  largura %.0f  erro medio %.2f max %.2f'%(g,ya,yb,lg,r.mean(),r.max()))
-    for y in range(ya,yb+1):
+    for y in range(max(0,ya),min(H,yb+1)):
         c=np.polyval(p,y); xa=int(round(c-lg/2)); xb=int(round(c+lg/2))
-        if xb<0 or xa>=W: continue
+        if xb<0 or xa>=W or not (0<=y<H): continue
         novo[y,max(0,xa):min(W,xb+1)]=True
 
 print('pixels %d -> %d'%(m.sum(),novo.sum()))
@@ -74,8 +78,8 @@ def f(v): return ('%.2f'%v).rstrip('0').rstrip('.')
 caminhos=[]
 for g in ('A','B','C'):
     p,lg,ya,yb,r=modelo(grupos[g])
-    while ya>0 and np.polyval(p,ya-1)+lg/2 > 0 and np.polyval(p,ya-1)-lg/2 < W: ya-=1
-    while yb<H-1 and np.polyval(p,yb+1)+lg/2 > 0 and np.polyval(p,yb+1)-lg/2 < W: yb+=1
+    while ya>-MARGEM and np.polyval(p,ya-1)+lg/2 > 0 and np.polyval(p,ya-1)-lg/2 < W: ya-=1
+    while yb<H-1+MARGEM and np.polyval(p,yb+1)+lg/2 > 0 and np.polyval(p,yb+1)-lg/2 < W: yb+=1
     (ex0,ey0),(ec,ecy),(ex1,ey1)=bezier(p,lg,ya,yb,-lg/2.0)
     (dx0,dy0),(dc,dcy),(dx1,dy1)=bezier(p,lg,ya,yb,+lg/2.0)
     d=('M%s %s Q%s %s %s %s L%s %s Q%s %s %s %sZ'%(
