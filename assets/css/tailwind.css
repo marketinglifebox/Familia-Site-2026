@@ -607,6 +607,16 @@ img,svg{
   }
 }
 
+/* ---- Camada de fundo -------------------------------------------------
+     As curvas decorativas ficam atras de TODO o conteudo do palco. Alem de
+     ser o lugar delas no documento, e o que permite que cada curva passe
+     alguns pixels por baixo das faixas laranjas vizinhas sem aparecer por
+     cima: quem corta a ponta e a faixa, e a emenda fica sem fresta. ------ */
+
+.fundo{
+  z-index:-1;
+}
+
 /* ---- Texto posicionado com precisao de altura-de-caixa (cap height) --- */
 
 .t{
