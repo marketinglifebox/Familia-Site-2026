@@ -72,26 +72,30 @@
   <section id="valores">
     <h2 class="t cond font-bold text-orange left-[350.93px] top-[2181.5px] text-[117.9px] tracking-[0.5px]">NOSSOS VALORES</h2>
 
-    <!-- a fileira sangra pelos dois lados da prancha, como no documento -->
-    <ul class="valor-fila top-[2362px]">
-      <li class="valor" style="left:-364px">
-        <span class="valor-nome" style="left:181.4px;top:84.46px;font-size:68.116px;letter-spacing:.4545px">EXPERIÊNCIA</span>
-        <span class="valor-sub"  style="left:241.6px;top:144.46px">DO CLIENTE</span>
-      </li>
-      <li class="valor" style="left:416px">
-        <span class="valor-nome" style="left:163.91px;top:85.46px;font-size:68.116px;letter-spacing:.4545px">INTELIGÊNCIA</span>
-        <span class="valor-sub"  style="left:247.16px;top:145.46px">EMOCIONAL</span>
-      </li>
-      <li class="valor" style="left:1194px">
-        <span class="valor-nome" style="left:158.91px;top:57.8px;font-size:101.449px;letter-spacing:.677px">FOCO</span>
-        <span class="valor-sub"  style="left:211.16px;top:149.46px">NO RESULTADO</span>
-      </li>
-    </ul>
+    <!-- carrossel contínuo; em repouso, o enquadramento do documento -->
+    <div class="valor-carrossel top-[2362px] h-[259px]" id="valorCarrossel" role="region" aria-label="Nossos valores">
+      <div class="valor-trilho" id="valorTrilho">
+        <article class="valor">
+          <span class="valor-nome">EXPERIÊNCIA</span>
+          <span class="valor-sub">DO CLIENTE</span>
+        </article>
+        <article class="valor">
+          <span class="valor-nome">INTELIGÊNCIA</span>
+          <span class="valor-sub">EMOCIONAL</span>
+        </article>
+        <article class="valor">
+          <span class="valor-nome">FOCO</span>
+          <span class="valor-sub">NO RESULTADO</span>
+        </article>
+      </div>
+    </div>
   </section>
 
 </main>
 </div>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/carrossel.js"></script>
+<script src="assets/js/valores.js"></script>
 </body>
 </html>

@@ -1108,32 +1108,66 @@ img,svg{
 }
 
 /* ---- Fileira "Nossos valores" (pagina Valores) ------------------------
-     A fileira sangra pelos dois lados da prancha, como no documento: dos
-     cartoes das pontas so se ve um pedaco. Cada rotulo e posicionado pela
-     medida da propria tinta, para os pedacos visiveis caírem onde caem no
-     PDF - inclusive o do cartao da direita, que la aparece num corpo maior
-     que o dos outros. ------------------------------------------------------ */
+     Mesmo carrossel da fileira de beneficios: laco continuo, arrasto e
+     laterais desfocadas. Em repouso o enquadramento e o do documento - um
+     cartao inteiro no meio e os vizinhos cortados pela moldura. ----------- */
 
-.valor-fila{
+.valor-carrossel{
   position:absolute;
   left:0;
   width:1512px;
-  height:259px;
-  margin:0;
-  padding:0;
-  list-style:none;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  cursor:grab;
+  overscroll-behavior-x:contain;
+}
+
+.valor-carrossel::-webkit-scrollbar{
+  display:none;
+}
+
+.valor-carrossel.arrastando{
+  cursor:grabbing;
+}
+
+.valor-carrossel.\!arrastando{
+  cursor:grabbing !important;
+}
+
+.valor-trilho{
+  display:flex;
+  gap:51px;
+  width:-moz-max-content;
+  width:max-content;
 }
 
 .valor{
-  position:absolute;
-  top:0;
+  position:relative;
+  flex:0 0 auto;
   width:729px;
   height:259px;
   background:#E86532;
+  --desfoque:0px;
+  --esmaece:1;
+  filter:blur(var(--desfoque));
+  opacity:var(--esmaece);
+}
+
+.valor-carrossel.arrastando .valor{
+  will-change:filter, opacity;
+}
+
+.valor-carrossel.\!arrastando .valor{
+  will-change:filter, opacity !important;
 }
 
 .valor-nome,.valor-sub{
   position:absolute;
+  left:0;
+  right:12px;
+  text-align:center;
   white-space:nowrap;
   line-height:1;
   font-family:'Fira Sans Condensed','Arial Narrow',sans-serif;
@@ -1141,12 +1175,16 @@ img,svg{
 }
 
 .valor-nome{
+  top:85.46px;
+  font-size:68.116px;
   font-weight:700;
+  letter-spacing:0.4545px;
 }
 
 .valor-sub {
-  font-weight:400;
+  top:145.46px;
   font-size:42.647px;
+  font-weight:400;
   letter-spacing:1.6px;
 }
 
@@ -1920,6 +1958,10 @@ img,svg{
 
 .h-\[22px\] {
   height: 22px;
+}
+
+.h-\[259px\] {
+  height: 259px;
 }
 
 .h-\[277px\] {

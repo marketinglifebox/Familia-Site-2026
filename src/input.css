@@ -292,19 +292,33 @@
   .benef-sub   { top:287.4px; font-size:28.3px;  font-weight:400; letter-spacing:-0.2px; }
 
   /* ---- Fileira "Nossos valores" (pagina Valores) ------------------------
-     A fileira sangra pelos dois lados da prancha, como no documento: dos
-     cartoes das pontas so se ve um pedaco. Cada rotulo e posicionado pela
-     medida da propria tinta, para os pedacos visiveis caírem onde caem no
-     PDF - inclusive o do cartao da direita, que la aparece num corpo maior
-     que o dos outros. ------------------------------------------------------ */
-  .valor-fila{ position:absolute; left:0; width:1512px; height:259px; margin:0; padding:0; list-style:none; }
-  .valor{ position:absolute; top:0; width:729px; height:259px; background:#E86532; }
-  .valor-nome,.valor-sub{
-    position:absolute; white-space:nowrap; line-height:1;
-    font-family:'Fira Sans Condensed','Arial Narrow',sans-serif; color:#FDF6EF;
+     Mesmo carrossel da fileira de beneficios: laco continuo, arrasto e
+     laterais desfocadas. Em repouso o enquadramento e o do documento - um
+     cartao inteiro no meio e os vizinhos cortados pela moldura. ----------- */
+  .valor-carrossel{
+    position:absolute; left:0; width:1512px;
+    overflow-x:auto; overflow-y:hidden;
+    scrollbar-width:none; -ms-overflow-style:none;
+    cursor:grab; overscroll-behavior-x:contain;
   }
-  .valor-nome{ font-weight:700; }
-  .valor-sub { font-weight:400; font-size:42.647px; letter-spacing:1.6px; }
+  .valor-carrossel::-webkit-scrollbar{ display:none; }
+  .valor-carrossel.arrastando{ cursor:grabbing; }
+
+  .valor-trilho{ display:flex; gap:51px; width:max-content; }
+
+  .valor{
+    position:relative; flex:0 0 auto; width:729px; height:259px; background:#E86532;
+    --desfoque:0px; --esmaece:1;
+    filter:blur(var(--desfoque)); opacity:var(--esmaece);
+  }
+  .valor-carrossel.arrastando .valor{ will-change:filter, opacity; }
+
+  .valor-nome,.valor-sub{
+    position:absolute; left:0; right:12px; text-align:center; white-space:nowrap;
+    line-height:1; font-family:'Fira Sans Condensed','Arial Narrow',sans-serif; color:#FDF6EF;
+  }
+  .valor-nome{ top:85.46px; font-size:68.116px; font-weight:700; letter-spacing:0.4545px; }
+  .valor-sub { top:145.46px; font-size:42.647px; font-weight:400; letter-spacing:1.6px; }
 
   /* --- laterais desfocadas ---------------------------------------------
      Cada cartao ganha desfoque e transparencia conforme se aproxima das
