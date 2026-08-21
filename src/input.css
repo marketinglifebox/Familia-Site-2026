@@ -151,20 +151,48 @@
      A mesma bola do painel de "Nossos habitos", do tamanho da tela. E um
      ::before do <html> para ja existir antes da primeira pintura da pagina
      nova - senao daria um lampejo do conteudo antes de a bola cobrir.
-     300vmax garante que ela cubra a tela partindo de qualquer ponto. ------ */
+     300vmax garante que ela cubra a tela partindo de qualquer ponto.
+
+     Ida e volta tem tempos diferentes, e cada estado carrega o seu: a
+     transicao que vale e sempre a do estado de destino. Cobrindo, a bola
+     cresce depressa e de borda limpa; revelando, ela desacelera por muito
+     tempo, vai perdendo a borda no desfoque e se apaga no fim - e o que tira
+     o corte seco no fecho. ------------------------------------------------ */
   .transicao::before{
     content:''; position:fixed; z-index:9999; pointer-events:none;
     left:calc(var(--tx,50) * 1vw); top:calc(var(--ty,50) * 1vh);
     width:300vmax; height:300vmax; margin:-150vmax 0 0 -150vmax;
     border-radius:50%; background:#E86532;
-    transform:scale(0); will-change:transform;
-    transition:transform .6s cubic-bezier(.22,.9,.28,1);
+    transform:scale(0); opacity:0; filter:blur(30px);
+    will-change:transform, opacity, filter;
+    transition:transform .8s cubic-bezier(.16,1,.3,1),
+               filter    .8s ease-in,
+               opacity   .3s ease-in .5s;
   }
-  .transicao.chega::before{ transform:scale(1); transition:none; }
-  .transicao.cobre::before{ transform:scale(1); transition-duration:.43s; }
+  .transicao.chega::before{ transform:scale(1); opacity:1; filter:blur(0px); transition:none; }
+  .transicao.cobre::before{
+    transform:scale(1); opacity:1; filter:blur(0px);
+    transition:transform .43s cubic-bezier(.4,0,.2,1), opacity .1s linear, filter .18s linear;
+  }
+
+  /* a pagina nova nao so aparece: ela sobe um pouco e ganha corpo enquanto a
+     bola se desfaz. E o que faz a chegada parecer chegada, e nao um pano
+     sendo puxado.
+
+     A volta e uma animacao, nao uma transicao: se por algum motivo ela nao
+     rodar, o estado natural do elemento ja e o certo (inteiro e no lugar).
+     Com transicao, a pagina ficaria presa a meio caminho. */
+  .transicao.chega .stage-wrap{ opacity:.3; transform:translateY(18px); }
+  .entrando .stage-wrap{ animation:entra-pagina .8s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes entra-pagina{
+    from{ opacity:.3; transform:translateY(18px) }
+    to  { opacity:1;  transform:none }
+  }
 
   @media (prefers-reduced-motion: reduce){
     .transicao::before{ display:none; }
+    .transicao.chega .stage-wrap{ opacity:1; transform:none; }
+    .entrando .stage-wrap{ animation:none; }
   }
 
   /* ---- "No Lifebox acreditamos em": atalhos para a pagina Valores -------

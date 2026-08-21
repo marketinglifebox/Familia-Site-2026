@@ -18,6 +18,7 @@ window.Transicao = (function () {
   var ESPERA  = 110;   /* ms antes de a bola sair — dá para ver o toque no botão */
   var COBRE   = 430;   /* ms de crescimento (igual ao CSS) */
   var TETO    = 700;   /* ms: tempo máximo esperando a página nova assentar */
+  var REVELA  = 1150;  /* ms até a bola sumir de vez (maior que a transição) */
   var raiz    = document.documentElement;
   var parado  = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -49,9 +50,15 @@ window.Transicao = (function () {
   function revela() {
     try { sessionStorage.removeItem(CHAVE); } catch (_) {}
     if (!raiz.classList.contains('transicao')) return;
+    /* "chega" tambem prende a pagina no ponto de partida da entrada (um pouco
+       abaixo e sem corpo); ele entra sem transicao, entao nao ha solavanco */
+    raiz.classList.add('chega');
     setTimeout(function () {
-      raiz.classList.remove('chega', 'cobre');       /* volta a escala 0, com transição */
-      setTimeout(function () { raiz.classList.remove('transicao'); }, 700);
+      raiz.classList.add('entrando');                /* a pagina sobe e ganha corpo */
+      raiz.classList.remove('chega', 'cobre');       /* e a bola se desfaz */
+      setTimeout(function () {
+        raiz.classList.remove('transicao', 'entrando');
+      }, REVELA);
     }, 24);
   }
 

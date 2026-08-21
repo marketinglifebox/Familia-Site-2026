@@ -11,7 +11,10 @@
    antes da primeira pintura */
 (function(){try{var m=sessionStorage.getItem('transicao');if(!m)return;var p=m.split(',');
 var r=document.documentElement;r.style.setProperty('--tx',p[0]);r.style.setProperty('--ty',p[1]);
-r.classList.add('transicao','chega');}catch(e){}})();</script>
+r.classList.add('transicao','chega');
+/* rede de seguranca: se transicao.js nao carregar, a pagina nao pode ficar
+   presa atras da bola */
+setTimeout(function(){r.classList.remove('transicao','chega');},3000);}catch(e){}})();</script>
 </head>
 <body class="bg-cream">
 
