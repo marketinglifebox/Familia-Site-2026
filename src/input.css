@@ -112,6 +112,46 @@
   .cond{ font-family:'Fira Sans Condensed', 'Arial Narrow', sans-serif; }
   .larg{ font-family:'Fira Sans', system-ui, sans-serif; }
 
+  /* ---- Menu: resposta ao clique ----------------------------------------
+     O item afunda e volta, com um risco laranja passando por baixo. E so
+     translacao, entao o botao "Trabalhe conosco" - que sao dois elementos, o
+     retangulo e o rotulo - anda junto sem precisar acertar eixo de escala.
+     A navegacao espera a animacao terminar; sem isso ela nem chegaria a
+     aparecer, porque a pagina troca antes. ------------------------------- */
+  .nav-link{ cursor:pointer; }
+  .nav-link::after{
+    content:''; position:absolute; left:0; right:0; bottom:-7px; height:3px;
+    background:#E86532; transform:scaleX(0); transform-origin:left center;
+  }
+  .nav-link:active,
+  .nav-botao:active,
+  .nav-botao:active + .nav-botao-rotulo{ transform:translateY(2px); }
+
+  .nav-link.clicou,
+  .nav-botao.clicou,
+  .nav-botao.clicou + .nav-botao-rotulo{ animation:nav-toque .26s cubic-bezier(.22,.9,.28,1); }
+  .nav-link.clicou::after{ animation:nav-risco .3s ease-out; }
+  .nav-botao.clicou{ animation-name:nav-toque, nav-brilho; animation-duration:.26s, .3s; }
+
+  @keyframes nav-toque{
+    0%{ transform:translateY(0) } 35%{ transform:translateY(3px) }
+    70%{ transform:translateY(-1.5px) } 100%{ transform:translateY(0) }
+  }
+  @keyframes nav-risco{
+    0%{ transform:scaleX(0); transform-origin:left center }
+    45%{ transform:scaleX(1); transform-origin:left center }
+    55%{ transform:scaleX(1); transform-origin:right center }
+    100%{ transform:scaleX(0); transform-origin:right center }
+  }
+  @keyframes nav-brilho{
+    0%,100%{ background-color:#E86532 } 40%{ background-color:#EB7C25 }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .nav-link.clicou, .nav-botao.clicou, .nav-botao.clicou + .nav-botao-rotulo,
+    .nav-link.clicou::after{ animation:none; }
+  }
+
   /* ---- Faixas "TRABALHE CONOSCO" ---------------------------------------- */
   .marquee{ position:absolute; overflow:hidden; background:#489A54; }
   .marquee-track{
