@@ -732,6 +732,45 @@ img,svg{
   }
 }
 
+/* ---- Transicao entre paginas -----------------------------------------
+     A mesma bola do painel de "Nossos habitos", do tamanho da tela. E um
+     ::before do <html> para ja existir antes da primeira pintura da pagina
+     nova - senao daria um lampejo do conteudo antes de a bola cobrir.
+     300vmax garante que ela cubra a tela partindo de qualquer ponto. ------ */
+
+.transicao::before{
+  content:'';
+  position:fixed;
+  z-index:9999;
+  pointer-events:none;
+  left:calc(var(--tx,50) * 1vw);
+  top:calc(var(--ty,50) * 1vh);
+  width:300vmax;
+  height:300vmax;
+  margin:-150vmax 0 0 -150vmax;
+  border-radius:50%;
+  background:#E86532;
+  transform:scale(0);
+  will-change:transform;
+  transition:transform .6s cubic-bezier(.22,.9,.28,1);
+}
+
+.transicao.chega::before{
+  transform:scale(1);
+  transition:none;
+}
+
+.transicao.cobre::before{
+  transform:scale(1);
+  transition-duration:.43s;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .transicao::before{
+    display:none;
+  }
+}
+
 /* ---- "No Lifebox acreditamos em": atalhos para a pagina Valores -------
      A marca da secao e o botao logo abaixo levam ao mesmo lugar e reagem
      juntos. A marca e um elemento so, entao pode dar um pulinho de escala;
@@ -1824,8 +1863,16 @@ img,svg{
   top: 2731px;
 }
 
+.top-\[2860px\] {
+  top: 2860px;
+}
+
 .top-\[2934\.5px\] {
   top: 2934.5px;
+}
+
+.top-\[300px\] {
+  top: 300px;
 }
 
 .top-\[3030\.9px\] {
@@ -1958,6 +2005,10 @@ img,svg{
 
 .top-\[5008px\] {
   top: 5008px;
+}
+
+.top-\[5150px\] {
+  top: 5150px;
 }
 
 .top-\[5223px\] {

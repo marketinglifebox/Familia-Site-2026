@@ -6,7 +6,12 @@
 <title>Quem Somos — Família Lifebox</title>
 <meta name="description" content="Nossa história, cultura, hábitos e rituais do Grupo Lifebox.">
 <link rel="stylesheet" href="assets/css/tailwind.css">
-<script>document.documentElement.classList.remove('no-js');</script>
+<script>document.documentElement.classList.remove('no-js');
+/* a pagina que veio de um clique ja nasce coberta pela bola da transicao,
+   antes da primeira pintura */
+(function(){try{var m=sessionStorage.getItem('transicao');if(!m)return;var p=m.split(',');
+var r=document.documentElement;r.style.setProperty('--tx',p[0]);r.style.setProperty('--ty',p[1]);
+r.classList.add('transicao','chega');}catch(e){}})();</script>
 </head>
 <body class="bg-cream">
 
@@ -40,7 +45,8 @@
   <!-- ====================================================================
        2. NOSSA HISTÓRIA
        ==================================================================== -->
-  <section id="nossa-historia">
+  <span id="nossa-historia" class="absolute left-0 top-[300px] w-px h-px" aria-hidden="true"></span>
+  <section>
     <h1 class="sr-only-abs">Nossa história</h1>
     <span aria-hidden="true" class="t cond font-medium text-orange left-[190px] top-[382.5px] text-[144.05px] tracking-[1.55px]">NOSSA</span>
     <img src="assets/svg/marca-inline.svg" alt="" class="absolute left-[620px] top-[386px] w-[120px] h-[125px]">
@@ -115,7 +121,8 @@
   <!-- ====================================================================
        5. NOSSOS RITUAIS
        ==================================================================== -->
-  <section id="rituais">
+  <span id="rituais" class="absolute left-0 top-[2860px] w-px h-px" aria-hidden="true"></span>
+  <section>
     <h2 class="t cond font-bold text-orange left-[456px] top-[2934.5px] text-[102.45px] tracking-[-0.56px]">Nossos rituais</h2>
 
     <span class="t geo text-orange left-[121px]  top-[3104.5px] text-[42.98px] tracking-[-1.26px]">CONEXÃO LIFERS</span>
@@ -132,6 +139,7 @@
 </main>
 </div>
 
+<script src="assets/js/transicao.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/cliques.js"></script>
 <script src="assets/js/habitos.js"></script>

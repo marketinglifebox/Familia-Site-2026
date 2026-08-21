@@ -8,8 +8,8 @@
    Elementos com o mesmo `data-toque` reagem juntos: clicar na marca anima
    também o botão, e vice-versa — os dois levam ao mesmo lugar.
 
-   A troca de página espera a animação terminar. Sem isso ela nem chegaria a
-   aparecer, porque o navegador já teria saído da página. Clique com
+   A troca de página espera a animação terminar e sai pela transição de
+   transicao.js — a bola que cresce do ponto do clique. Clique com
    Ctrl/Cmd/Shift, com o botão do meio ou com movimento reduzido ligado não é
    segurado: nesses casos o navegador faz o que sempre faz.
    ========================================================================== */
@@ -44,10 +44,32 @@
       /* item da própria página: só a animação, não há para onde ir */
       if (a.getAttribute('aria-current') === 'page') { e.preventDefault(); return; }
       if (!destino) return;
+
+      /* âncora da própria página: só o salto, sem a bola da transição - não
+         há recarga que a desfaça do outro lado. Tratado sempre aqui, mesmo com
+         movimento reduzido, porque o salto nativo rolaria também o .stage-wrap */
+      var mesmaPagina = destino.charAt(0) === '#' && document.getElementById(destino.slice(1));
+      if (mesmaPagina) {
+        e.preventDefault();
+        /* scrollTo na janela, e nao scrollIntoView: este ultimo rola também
+           os ancestrais roláveis, e o palco vive dentro de um .stage-wrap com
+           overflow:hidden — que ele empurraria para o lado */
+        var y = mesmaPagina.getBoundingClientRect().top + window.pageYOffset;
+        try { window.scrollTo({ top: y, behavior: parado ? 'auto' : 'smooth' }); }
+        catch (_) { window.scrollTo(0, y); }
+        if (history.replaceState) history.replaceState(null, '', destino);
+        return;
+      }
+
       if (parado) return;                 /* movimento desligado: vai direto */
 
       e.preventDefault();
-      setTimeout(function () { window.location.href = destino; }, DURACAO);
+      var r = a.getBoundingClientRect();
+      var px = e.clientX || (r.left + r.width / 2);
+      var py = e.clientY || (r.top + r.height / 2);
+      function vai() { window.location.href = destino; }
+      if (window.Transicao) window.Transicao.sai(px, py, vai);
+      else setTimeout(vai, DURACAO);
     });
   });
 })();
