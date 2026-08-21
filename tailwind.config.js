@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './quem-somos.html', './assets/js/**/*.js'],
+  content: ['./index.html', './quem-somos.html', './valores.html', './assets/js/**/*.js'],
   theme: {
     extend: {
       colors: {
@@ -12,6 +12,7 @@ module.exports = {
         'green-line': '#64A568', // curvas decorativas
         'green-head': '#159345', // titulo "POR QUE"
         navy:         '#00358E', // links do menu
+        'blue-head':  '#1B4697', // cabecalho da pagina Valores
         'logo-dark':  '#0D1B2A', // wordmark LIFEBOX
         salmon:       '#EE9E77', // palavra "FAMILIA" do logo
         ink:          '#000000', // textos pretos
@@ -20,6 +21,7 @@ module.exports = {
       fontFamily: {
         geo:  ['Poppins', 'system-ui', 'sans-serif'],          // sans geometrica
         cond: ['"Fira Sans Condensed"', 'Impact', 'sans-serif'], // sans condensada pesada
+        sans2:['"Fira Sans"', 'system-ui', 'sans-serif'],       // a mesma, largura normal
       },
     },
   },

@@ -634,6 +634,10 @@ img,svg{
   font-family:'Fira Sans Condensed', 'Arial Narrow', sans-serif;
 }
 
+.larg{
+  font-family:'Fira Sans', system-ui, sans-serif;
+}
+
 /* ---- Faixas "TRABALHE CONOSCO" ---------------------------------------- */
 
 .marquee{
@@ -743,6 +747,10 @@ img,svg{
 
 .stage--quem{
   height:3486px;
+}
+
+.stage--valores{
+  height:2832px;
 }
 
 /* --- bloco laranja com brilho radial no canto superior direito -------- */
@@ -1099,6 +1107,49 @@ img,svg{
   letter-spacing:-0.2px;
 }
 
+/* ---- Fileira "Nossos valores" (pagina Valores) ------------------------
+     A fileira sangra pelos dois lados da prancha, como no documento: dos
+     cartoes das pontas so se ve um pedaco. Cada rotulo e posicionado pela
+     medida da propria tinta, para os pedacos visiveis caírem onde caem no
+     PDF - inclusive o do cartao da direita, que la aparece num corpo maior
+     que o dos outros. ------------------------------------------------------ */
+
+.valor-fila{
+  position:absolute;
+  left:0;
+  width:1512px;
+  height:259px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.valor{
+  position:absolute;
+  top:0;
+  width:729px;
+  height:259px;
+  background:#E86532;
+}
+
+.valor-nome,.valor-sub{
+  position:absolute;
+  white-space:nowrap;
+  line-height:1;
+  font-family:'Fira Sans Condensed','Arial Narrow',sans-serif;
+  color:#FDF6EF;
+}
+
+.valor-nome{
+  font-weight:700;
+}
+
+.valor-sub {
+  font-weight:400;
+  font-size:42.647px;
+  letter-spacing:1.6px;
+}
+
 /* --- laterais desfocadas ---------------------------------------------
      Cada cartao ganha desfoque e transparencia conforme se aproxima das
      bordas do carrossel; como as variaveis sao escritas a cada quadro da
@@ -1199,6 +1250,10 @@ img,svg{
   left: 1129px;
 }
 
+.left-\[1133px\] {
+  left: 1133px;
+}
+
 .left-\[1137px\] {
   left: 1137px;
 }
@@ -1209,6 +1264,10 @@ img,svg{
 
 .left-\[114px\] {
   left: 114px;
+}
+
+.left-\[1150px\] {
+  left: 1150px;
 }
 
 .left-\[1152px\] {
@@ -1295,6 +1354,10 @@ img,svg{
   left: 277px;
 }
 
+.left-\[279px\] {
+  left: 279px;
+}
+
 .left-\[284px\] {
   left: 284px;
 }
@@ -1315,12 +1378,40 @@ img,svg{
   left: 308px;
 }
 
+.left-\[343\.02px\] {
+  left: 343.02px;
+}
+
+.left-\[350\.93px\] {
+  left: 350.93px;
+}
+
+.left-\[354\.51px\] {
+  left: 354.51px;
+}
+
+.left-\[387\.8px\] {
+  left: 387.8px;
+}
+
+.left-\[410\.93px\] {
+  left: 410.93px;
+}
+
 .left-\[428px\] {
   left: 428px;
 }
 
+.left-\[431\.93px\] {
+  left: 431.93px;
+}
+
 .left-\[456px\] {
   left: 456px;
+}
+
+.left-\[471\.81px\] {
+  left: 471.81px;
 }
 
 .left-\[536px\] {
@@ -1443,6 +1534,10 @@ img,svg{
   top: 1112px;
 }
 
+.top-\[1243\.5px\] {
+  top: 1243.5px;
+}
+
 .top-\[1307\.4px\] {
   top: 1307.4px;
 }
@@ -1451,8 +1546,20 @@ img,svg{
   top: 132px;
 }
 
+.top-\[1364\.77px\] {
+  top: 1364.77px;
+}
+
 .top-\[1386px\] {
   top: 1386px;
+}
+
+.top-\[1392\.77px\] {
+  top: 1392.77px;
+}
+
+.top-\[1452px\] {
+  top: 1452px;
 }
 
 .top-\[1454px\] {
@@ -1475,8 +1582,16 @@ img,svg{
   top: 2033px;
 }
 
+.top-\[2181\.5px\] {
+  top: 2181.5px;
+}
+
 .top-\[2185px\] {
   top: 2185px;
+}
+
+.top-\[2362px\] {
+  top: 2362px;
 }
 
 .top-\[2493\.7px\] {
@@ -1587,6 +1702,10 @@ img,svg{
   top: 3902px;
 }
 
+.top-\[398\.5px\] {
+  top: 398.5px;
+}
+
 .top-\[413\.2px\] {
   top: 413.2px;
 }
@@ -1651,6 +1770,10 @@ img,svg{
   top: 537.9px;
 }
 
+.top-\[539\.72px\] {
+  top: 539.72px;
+}
+
 .top-\[5411px\] {
   top: 5411px;
 }
@@ -1671,12 +1794,20 @@ img,svg{
   top: 57.5px;
 }
 
+.top-\[572\.72px\] {
+  top: 572.72px;
+}
+
 .top-\[598\.3px\] {
   top: 598.3px;
 }
 
 .top-\[625px\] {
   top: 625px;
+}
+
+.top-\[630px\] {
+  top: 630px;
 }
 
 .top-\[653\.4px\] {
@@ -1799,12 +1930,24 @@ img,svg{
   height: 278px;
 }
 
+.h-\[2832px\] {
+  height: 2832px;
+}
+
 .h-\[330px\] {
   height: 330px;
 }
 
 .h-\[3px\] {
   height: 3px;
+}
+
+.h-\[493px\] {
+  height: 493px;
+}
+
+.h-\[494px\] {
+  height: 494px;
 }
 
 .h-\[52px\] {
@@ -1947,6 +2090,10 @@ img,svg{
   width: 803px;
 }
 
+.w-\[988px\] {
+  width: 988px;
+}
+
 .w-full {
   width: 100%;
 }
@@ -1976,6 +2123,11 @@ img,svg{
 
 .rounded-tl-\[143px\] {
   border-top-left-radius: 143px;
+}
+
+.bg-blue-head {
+  --tw-bg-opacity: 1;
+  background-color: rgb(27 70 151 / var(--tw-bg-opacity, 1));
 }
 
 .bg-cream {
@@ -2018,6 +2170,10 @@ img,svg{
   font-size: 116.88px;
 }
 
+.text-\[117\.9px\] {
+  font-size: 117.9px;
+}
+
 .text-\[14\.47px\] {
   font-size: 14.47px;
 }
@@ -2050,12 +2206,20 @@ img,svg{
   font-size: 28.86px;
 }
 
+.text-\[29\.85px\] {
+  font-size: 29.85px;
+}
+
 .text-\[31\.75px\] {
   font-size: 31.75px;
 }
 
 .text-\[38\.96px\] {
   font-size: 38.96px;
+}
+
+.text-\[39\.92px\] {
+  font-size: 39.92px;
 }
 
 .text-\[40\.11px\] {
@@ -2140,6 +2304,10 @@ img,svg{
 
 .tracking-\[-0\.17px\] {
   letter-spacing: -0.17px;
+}
+
+.tracking-\[-0\.315px\] {
+  letter-spacing: -0.315px;
 }
 
 .tracking-\[-0\.44px\] {
@@ -2246,6 +2414,10 @@ img,svg{
   letter-spacing: 0.52px;
 }
 
+.tracking-\[0\.5px\] {
+  letter-spacing: 0.5px;
+}
+
 .tracking-\[0\.64px\] {
   letter-spacing: 0.64px;
 }
@@ -2294,6 +2466,10 @@ img,svg{
   letter-spacing: 1.24px;
 }
 
+.tracking-\[1\.473px\] {
+  letter-spacing: 1.473px;
+}
+
 .tracking-\[1\.4px\] {
   letter-spacing: 1.4px;
 }
@@ -2304,6 +2480,10 @@ img,svg{
 
 .tracking-\[1\.8px\] {
   letter-spacing: 1.8px;
+}
+
+.tracking-\[1\.97px\] {
+  letter-spacing: 1.97px;
 }
 
 .tracking-\[2\.01px\] {
@@ -2513,6 +2693,36 @@ img,svg{
   font-display:swap;
 
   src:url('../fonts/poppins-700-normal-latin.woff2') format('woff2');
+
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ---------- Fira Sans (largura normal: paragrafo da pagina Valores) -------- */
+
+@font-face{
+  font-family:'Fira Sans';
+
+  font-style:normal;
+
+  font-weight:400;
+
+  font-display:swap;
+
+  src:url('../fonts/firasans-400-normal-latin-ext.woff2') format('woff2');
+
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+@font-face{
+  font-family:'Fira Sans';
+
+  font-style:normal;
+
+  font-weight:400;
+
+  font-display:swap;
+
+  src:url('../fonts/firasans-400-normal-latin.woff2') format('woff2');
 
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
