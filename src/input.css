@@ -147,9 +147,31 @@
     0%,100%{ background-color:#E86532 } 40%{ background-color:#EB7C25 }
   }
 
+  /* ---- "No Lifebox acreditamos em": atalhos para a pagina Valores -------
+     A marca da secao e o botao logo abaixo levam ao mesmo lugar e reagem
+     juntos. A marca e um elemento so, entao pode dar um pulinho de escala;
+     o botao sao dois (o retangulo e o rotulo), entao afunda por translacao,
+     como no menu. -------------------------------------------------------- */
+  .marca-link{ display:block; cursor:pointer; }
+  .marca-link:active{ transform:scale(.95); }
+  .marca-link.clicou{ animation:marca-toque .32s cubic-bezier(.22,.9,.28,1); }
+  @keyframes marca-toque{
+    0%{ transform:scale(1) } 30%{ transform:scale(.92) }
+    62%{ transform:scale(1.06) } 100%{ transform:scale(1) }
+  }
+
+  .pilha-botao{ cursor:pointer; }
+  .pilha-botao:active,
+  .pilha-botao:active + .pilha-rotulo{ transform:translateY(2px); }
+  .pilha-botao.clicou,
+  .pilha-botao.clicou + .pilha-rotulo{ animation:nav-toque .26s cubic-bezier(.22,.9,.28,1); }
+  .pilha-botao.clicou{ animation-name:nav-toque, pilha-brilho; animation-duration:.26s, .32s; }
+  @keyframes pilha-brilho{ 0%,100%{ background-color:#FDF6EF } 45%{ background-color:#FFFFFF } }
+
   @media (prefers-reduced-motion: reduce){
     .nav-link.clicou, .nav-botao.clicou, .nav-botao.clicou + .nav-botao-rotulo,
-    .nav-link.clicou::after{ animation:none; }
+    .nav-link.clicou::after,
+    .marca-link.clicou, .pilha-botao.clicou, .pilha-botao.clicou + .pilha-rotulo{ animation:none; }
   }
 
   /* ---- Faixas "TRABALHE CONOSCO" ---------------------------------------- */

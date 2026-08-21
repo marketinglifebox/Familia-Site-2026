@@ -732,9 +732,76 @@ img,svg{
   }
 }
 
+/* ---- "No Lifebox acreditamos em": atalhos para a pagina Valores -------
+     A marca da secao e o botao logo abaixo levam ao mesmo lugar e reagem
+     juntos. A marca e um elemento so, entao pode dar um pulinho de escala;
+     o botao sao dois (o retangulo e o rotulo), entao afunda por translacao,
+     como no menu. -------------------------------------------------------- */
+
+.marca-link{
+  display:block;
+  cursor:pointer;
+}
+
+.marca-link:active{
+  transform:scale(.95);
+}
+
+.marca-link.clicou{
+  animation:marca-toque .32s cubic-bezier(.22,.9,.28,1);
+}
+
+@keyframes marca-toque{
+  0%{
+    transform:scale(1)
+  }
+
+  30%{
+    transform:scale(.92)
+  }
+
+  62%{
+    transform:scale(1.06)
+  }
+
+  100%{
+    transform:scale(1)
+  }
+}
+
+.pilha-botao{
+  cursor:pointer;
+}
+
+.pilha-botao:active,
+  .pilha-botao:active + .pilha-rotulo{
+  transform:translateY(2px);
+}
+
+.pilha-botao.clicou,
+  .pilha-botao.clicou + .pilha-rotulo{
+  animation:nav-toque .26s cubic-bezier(.22,.9,.28,1);
+}
+
+.pilha-botao.clicou{
+  animation-name:nav-toque, pilha-brilho;
+  animation-duration:.26s, .32s;
+}
+
+@keyframes pilha-brilho{
+  0%,100%{
+    background-color:#FDF6EF
+  }
+
+  45%{
+    background-color:#FFFFFF
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
   .nav-link.clicou, .nav-botao.clicou, .nav-botao.clicou + .nav-botao-rotulo,
-    .nav-link.clicou::after{
+    .nav-link.clicou::after,
+    .marca-link.clicou, .pilha-botao.clicou, .pilha-botao.clicou + .pilha-rotulo{
     animation:none;
   }
 }
@@ -1673,6 +1740,10 @@ img,svg{
   top: 1112px;
 }
 
+.top-\[1175px\] {
+  top: 1175px;
+}
+
 .top-\[1243\.5px\] {
   top: 1243.5px;
 }
@@ -1719,6 +1790,10 @@ img,svg{
 
 .top-\[2033px\] {
   top: 2033px;
+}
+
+.top-\[2113px\] {
+  top: 2113px;
 }
 
 .top-\[2181\.5px\] {
@@ -1811,6 +1886,10 @@ img,svg{
 
 .top-\[3287\.5px\] {
   top: 3287.5px;
+}
+
+.top-\[330px\] {
+  top: 330px;
 }
 
 .top-\[3331px\] {
@@ -1993,6 +2072,10 @@ img,svg{
   margin: 0px;
 }
 
+.block {
+  display: block;
+}
+
 .inline {
   display: inline;
 }
@@ -2141,6 +2224,10 @@ img,svg{
   height: 100%;
 }
 
+.h-px {
+  height: 1px;
+}
+
 .w-\[102px\] {
   width: 102px;
 }
@@ -2239,6 +2326,10 @@ img,svg{
 
 .w-full {
   width: 100%;
+}
+
+.w-px {
+  width: 1px;
 }
 
 .rotate-\[-1\.82deg\] {
