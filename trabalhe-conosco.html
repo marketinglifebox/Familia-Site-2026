@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trabalhe conosco — Família Lifebox</title>
+<meta name="description" content="Vagas abertas no Grupo Lifebox. Venha fazer parte dessa família.">
+<link rel="stylesheet" href="assets/css/tailwind.css">
+<script>document.documentElement.classList.remove('no-js');
+/* a pagina que veio de um clique ja nasce coberta pela bola da transicao,
+   antes da primeira pintura */
+(function(){try{var m=sessionStorage.getItem('transicao');if(!m)return;var p=m.split(',');
+var r=document.documentElement;r.style.setProperty('--tx',p[0]);r.style.setProperty('--ty',p[1]);
+r.classList.add('transicao','chega');
+/* rede de seguranca: se transicao.js nao carregar, a pagina nao pode ficar
+   presa atras da bola */
+setTimeout(function(){r.classList.remove('transicao','chega');},3000);}catch(e){}})();</script>
+</head>
+<body class="bg-cream">
+
+<!-- ==========================================================================
+     PALCO 1512 x 2310 px — mesma prancha do documento original (página 4)
+     ========================================================================== -->
+<div class="stage-wrap" id="stageWrap">
+<main class="stage stage--trabalhe" id="stage">
+
+  <!-- ilustração verde + sombras dos cartões: camada de fundo -->
+  <img src="assets/img/trabalhe-fundo.jpg" alt=""
+       class="fundo absolute left-0 top-[814px] w-[1512px] h-[1496px]">
+
+  <!-- ====================================================================
+       1. CABEÇALHO LARANJA
+       ==================================================================== -->
+  <header>
+    <div class="absolute left-0 top-0 w-[1512px] h-[102px] bg-orange"></div>
+
+    <a href="index.html" class="logo logo--cream left-[184px] top-[25.8px] scale-[.6]" aria-label="Família Lifebox — início">
+      <span class="logo-familia">FAMÍLIA</span>
+      <img class="logo-lifebox" src="assets/svg/logo-lifebox-cream.svg" alt="">
+      <img class="logo-mark"    src="assets/svg/logo-mark-cream.svg"    alt="">
+    </a>
+
+    <nav>
+      <a href="quem-somos.html"         class="nav-link t cond font-medium text-cream left-[578px] top-[44.5px] text-[24.6px] tracking-[0.64px]">QUEM SOMOS</a>
+      <a href="quem-somos.html#habitos" class="nav-link t cond font-medium text-cream left-[753px] top-[44.5px] text-[24.6px] tracking-[0.224px]">HÁBITOS E RITUAIS</a>
+      <a href="valores.html"            class="nav-link t cond font-medium text-cream left-[984px] top-[44.5px] text-[24.6px] tracking-[1.098px]">VALORES</a>
+      <a href="trabalhe-conosco.html" aria-current="page"
+         class="nav-botao nav-botao--creme absolute left-[1088px] top-[27px] w-[252px] h-[52px]"></a>
+      <span class="nav-botao-rotulo t cond font-medium text-orange left-[1107px] top-[44.5px] text-[24.6px] tracking-[1.077px] pointer-events-none">TRABALHE CONOSCO</span>
+    </nav>
+  </header>
+
+  <!-- ====================================================================
+       2. TÍTULO — faixa laranja com o letreiro recortado em creme.
+          O letreiro do documento é desenhado à mão (letras que se montam
+          umas sobre as outras, cada uma abrindo um vão na anterior), então
+          vem como traçado vetorial; o texto continua no <h1>, para leitura.
+       ==================================================================== -->
+  <h1 class="absolute left-[183px] top-[311px] w-[1140px] h-[91px] bg-orange overflow-hidden">
+    <span class="sr-only-abs">Trabalhe conosco</span>
+    <img src="assets/svg/titulo-trabalhe.svg" alt="" class="block w-[1140px] h-[91px]">
+  </h1>
+
+  <!-- ====================================================================
+       3. CARTÃO LARANJA — chamada e busca de vagas
+       ==================================================================== -->
+  <section aria-labelledby="chamada">
+    <div class="absolute left-[184px] top-[471px] w-[1138px] h-[422px] bg-orange rounded-[55px]"></div>
+
+    <h2 id="chamada" class="t geom font-semibold text-cream left-[278px] top-[560.8px] text-[70px] tracking-[-1.687px]">Venha fazer parte dessa família</h2>
+
+    <form class="busca absolute left-[255px] top-[700px] w-[998px] h-[116px]" role="search" action="#" onsubmit="return false">
+      <label for="busca-vagas" class="sr-only-abs">Buscar vagas</label>
+      <img src="assets/svg/lupa.svg" alt="" class="busca-lupa" width="44" height="44">
+      <input id="busca-vagas" class="busca-campo geom" type="search" name="q" placeholder="Buscar vagas" autocomplete="off">
+    </form>
+  </section>
+
+  <!-- ====================================================================
+       4. VAGAS
+       ==================================================================== -->
+  <section aria-label="Vagas abertas">
+
+    <!-- vaga 1 -->
+    <article class="vaga absolute left-[183px] top-[961px] w-[1112px] h-[381px] bg-cream">
+      <h3 class="t cond font-medium text-orange left-[60px] top-[66.314px] text-[51.429px] tracking-[3.157px]">Cumim</h3>
+      <p class="t cond font-medium text-orange left-[811px] top-[58.314px] text-[51.429px] tracking-[0.737px]">R$2.000,00</p>
+      <p class="vaga-desc cond left-[60px] top-[167.754px]">O cumim auxilia os garçons no atendimento, organiza as mesas, serve pedidos, repõe materiais e mantém o salão organizado para garantir um serviço ágil e de qualidade.</p>
+      <button type="button" class="vaga-botao absolute left-[58px] top-[254px] w-[348px] h-[72px] bg-orange"></button>
+      <span class="vaga-rotulo t geom font-medium text-cream left-[118px] top-[270.685px] text-[37.143px] tracking-[-1.631px] pointer-events-none">Candidatar-se</span>
+    </article>
+
+    <!-- vaga 2 -->
+    <article class="vaga absolute left-[182px] top-[1395px] w-[1111px] h-[381px] bg-cream">
+      <h3 class="t cond font-medium text-orange left-[65px] top-[53.314px] text-[51.429px] tracking-[3.157px]">Cumim</h3>
+      <p class="t cond font-medium text-orange left-[815px] top-[44.314px] text-[51.429px] tracking-[0.737px]">R$2.000,00</p>
+      <p class="vaga-desc cond left-[64px] top-[153.754px]">O cumim auxilia os garçons no atendimento, organiza as mesas, serve pedidos, repõe materiais e mantém o salão organizado para garantir um serviço ágil e de qualidade.</p>
+      <button type="button" class="vaga-botao absolute left-[62px] top-[240px] w-[348px] h-[72px] bg-orange"></button>
+      <span class="vaga-rotulo t geom font-medium text-cream left-[122px] top-[256.685px] text-[37.143px] tracking-[-1.631px] pointer-events-none">Candidatar-se</span>
+    </article>
+
+    <!-- vaga 3 -->
+    <article class="vaga absolute left-[182px] top-[1827px] w-[1111px] h-[381px] bg-cream">
+      <h3 class="t cond font-medium text-orange left-[61px] top-[71.314px] text-[51.429px] tracking-[3.157px]">Cumim</h3>
+      <p class="t cond font-medium text-orange left-[812px] top-[63.314px] text-[51.429px] tracking-[0.737px]">R$2.000,00</p>
+      <p class="vaga-desc cond left-[61px] top-[171.754px]">O cumim auxilia os garçons no atendimento, organiza as mesas, serve pedidos, repõe materiais e mantém o salão organizado para garantir um serviço ágil e de qualidade.</p>
+      <button type="button" class="vaga-botao absolute left-[59px] top-[258px] w-[348px] h-[72px] bg-orange"></button>
+      <span class="vaga-rotulo t geom font-medium text-cream left-[119px] top-[274.685px] text-[37.143px] tracking-[-1.631px] pointer-events-none">Candidatar-se</span>
+    </article>
+  </section>
+
+</main>
+</div>
+
+<script src="assets/js/transicao.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/cliques.js"></script>
+</body>
+</html>

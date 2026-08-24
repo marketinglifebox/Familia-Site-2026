@@ -39,6 +39,15 @@
   src:url('../fonts/poppins-700-normal-latin.woff2') format('woff2');
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 
+/* ---------- Outfit (geometrica: pagina Trabalhe conosco) ------------------
+   arquivo variavel, um so para os pesos de 400 a 700 */
+@font-face{font-family:'Outfit';font-style:normal;font-weight:400 700;font-display:swap;
+  src:url('../fonts/outfit-var-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:400 700;font-display:swap;
+  src:url('../fonts/outfit-var-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+
 /* ---------- Fira Sans (largura normal: paragrafo da pagina Valores) -------- */
 @font-face{font-family:'Fira Sans';font-style:normal;font-weight:400;font-display:swap;
   src:url('../fonts/firasans-400-normal-latin-ext.woff2') format('woff2');
@@ -111,6 +120,7 @@
   .geo { font-family:'Poppins', system-ui, sans-serif; }
   .cond{ font-family:'Fira Sans Condensed', 'Arial Narrow', sans-serif; }
   .larg{ font-family:'Fira Sans', system-ui, sans-serif; }
+  .geom{ font-family:'Outfit', system-ui, sans-serif; }
 
   /* ---- Menu: resposta ao clique ----------------------------------------
      O item afunda e volta, com um risco laranja passando por baixo. E so
@@ -259,6 +269,7 @@
      ====================================================================== */
   .stage--quem{ height:3486px; }
   .stage--valores{ height:2832px; }
+  .stage--trabalhe{ height:2310px; }
 
   /* --- bloco laranja com brilho radial no canto superior direito -------- */
   .bloco-laranja{
@@ -440,4 +451,47 @@
     opacity:var(--esmaece);
   }
   .benef-carrossel.arrastando .benef-card{ will-change:filter, opacity; }
+
+  /* ======================================================================
+     PAGINA "TRABALHE CONOSCO" (pagina 4)
+     ====================================================================== */
+
+  /* --- botao do menu na variante creme (esta pagina) --------------------- */
+  .nav-botao--creme{ background:#FDF6EF; }
+  .nav-botao--creme.clicou{ animation-name:nav-toque, nav-brilho-creme; }
+  @keyframes nav-brilho-creme{
+    0%,100%{ background-color:#FDF6EF } 40%{ background-color:#FFFFFF }
+  }
+
+  /* --- campo de busca de vagas ------------------------------------------
+     O quadro creme, a lupa e o campo ocupam as mesmas medidas do documento;
+     o campo e um <input> de verdade, so sem moldura propria. -------------- */
+  .busca{ background:#FDF6EF; border-radius:20px; }
+  .busca-lupa{ position:absolute; left:44px; top:36px; display:block; }
+  .busca-campo{
+    position:absolute; inset:0; width:100%; height:100%;
+    padding:0 40px 0 103px; border:0; background:transparent; border-radius:20px;
+    font-size:31.429px; font-weight:400; letter-spacing:-0.026px; color:#1C1C1C;
+    line-height:normal; -webkit-appearance:none; appearance:none;
+  }
+  .busca-campo:focus{ outline:3px solid #E86532; outline-offset:-3px; }
+  .busca-campo::placeholder{ color:#C9C3BD; opacity:1; }
+  .busca-campo::-webkit-search-cancel-button{ -webkit-appearance:none; }
+
+  /* --- cartoes de vaga ---------------------------------------------------
+     As sombras dos cartoes ja vem na ilustracao de fundo, no lugar exato do
+     documento; aqui fica so a face creme, para o texto assentar em cima. --- */
+  .vaga-desc{
+    position:absolute; width:990px; margin:0;
+    font-size:23.188px; font-weight:500; letter-spacing:-0.035px; line-height:23px;
+    color:#37342F; text-align:justify;
+  }
+
+  .vaga-botao{ border:0; padding:0; cursor:pointer; }
+  .vaga-botao:active,
+  .vaga-botao:active + .vaga-rotulo{ transform:translateY(2px); }
+  .vaga-botao.clicou,
+  .vaga-botao.clicou + .vaga-rotulo{ animation:nav-toque .26s cubic-bezier(.22,.9,.28,1); }
+  .vaga-botao.clicou{ animation-name:nav-toque, nav-brilho; animation-duration:.26s, .3s; }
+  .vaga-botao:focus-visible{ outline:3px solid #1C1C1C; outline-offset:4px; }
 }

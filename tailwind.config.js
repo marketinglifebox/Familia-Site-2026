@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './quem-somos.html', './valores.html', './assets/js/**/*.js'],
+  content: ['./index.html', './quem-somos.html', './valores.html', './trabalhe-conosco.html', './assets/js/**/*.js'],
   theme: {
     extend: {
       colors: {
@@ -22,6 +22,7 @@ module.exports = {
         geo:  ['Poppins', 'system-ui', 'sans-serif'],          // sans geometrica
         cond: ['"Fira Sans Condensed"', 'Impact', 'sans-serif'], // sans condensada pesada
         sans2:['"Fira Sans"', 'system-ui', 'sans-serif'],       // a mesma, largura normal
+        geom: ['Outfit', 'system-ui', 'sans-serif'],           // geometrica da pagina Trabalhe conosco
       },
     },
   },

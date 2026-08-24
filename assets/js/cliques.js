@@ -16,7 +16,7 @@
 (function () {
   'use strict';
 
-  var SELETOR = '.nav-link, .nav-botao, .marca-link, .pilha-botao';
+  var SELETOR = '.nav-link, .nav-botao, .marca-link, .pilha-botao, .vaga-botao';
   var DURACAO = 320;   /* ms — um pouco mais que a mais longa das animações */
   var parado = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
