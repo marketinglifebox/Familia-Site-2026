@@ -138,7 +138,36 @@ out.append('''<script>
     /* aqui nao ha recarga: a bola que cobriu a tela e desfeita na sequencia */
     if (window.Transicao) window.Transicao.revela();
   }
-  var destino={'pg-quem':'wrapQuem','pg-valores':'wrapValo','pg-trabalhe':'wrapTrab'};
+  var destino={'pg-quem':'wrapQuem','pg-valores':'wrapValo','pg-trabalhe':'wrapTrab',
+               'pg-home':'wrapHome'};
+  /* cliques.js entrega a navegacao aqui em vez de mexer em location: dentro de
+     um iframe com sandbox - que e como esta previa costuma ser aberta - trocar
+     location.hash nao e salto de ancora, e uma renavegacao do quadro, e ela
+     mata a pagina. Trocar de palco na mao nao depende de nada disso. */
+  window.Roteador=function(alvo){
+    if(!alvo || alvo.charAt(0)!=='#') return false;
+    var partes=alvo.slice(1).split('!');
+    var wrap=destino[partes[0]];
+    if(!wrap) return false;
+    mostra(wrap, partes[1]);
+    return true;
+  };
+  /* rede: qualquer link de pagina que cliques.js nao intercepte - o logo do
+     cabecalho, por exemplo - tambem troca de palco aqui, em vez de deixar o
+     navegador mexer no location */
+  document.addEventListener('click', function(e){
+    if (e.defaultPrevented) return;                 /* cliques.js ja assumiu */
+    if (e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0) return;
+    var a=e.target;
+    while (a && a.nodeName!=='A') a=a.parentNode;
+    if (!a || !a.getAttribute) return;
+    var h=a.getAttribute('href')||'';
+    /* o logo da propria pagina inicial aponta para "#": no navegador comum
+       isso so volta ao topo, mas dentro de um iframe com sandbox e mais uma
+       renavegacao do quadro */
+    if (h==='#'){ e.preventDefault(); window.scrollTo(0,0); return; }
+    if (window.Roteador(h)) e.preventDefault();
+  });
   function rota(){
     var partes=(location.hash||'').replace('#','').split('!');
     mostra(destino[partes[0]] || 'wrapHome', partes[1]);

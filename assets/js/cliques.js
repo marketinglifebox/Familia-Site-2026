@@ -57,17 +57,27 @@
         var y = mesmaPagina.getBoundingClientRect().top + window.pageYOffset;
         try { window.scrollTo({ top: y, behavior: parado ? 'auto' : 'smooth' }); }
         catch (_) { window.scrollTo(0, y); }
-        if (history.replaceState) history.replaceState(null, '', destino);
+        /* num iframe com sandbox o replaceState levanta SecurityError, e sem o
+           try o resto do clique morreria com ele */
+        try { if (history.replaceState) history.replaceState(null, '', destino); } catch (_) {}
         return;
       }
 
-      if (parado) return;                 /* movimento desligado: vai direto */
+      if (parado) {                       /* movimento desligado: vai direto */
+        if (window.Roteador && window.Roteador(destino)) e.preventDefault();
+        return;
+      }
 
       e.preventDefault();
       var r = a.getBoundingClientRect();
       var px = e.clientX || (r.left + r.width / 2);
       var py = e.clientY || (r.top + r.height / 2);
-      function vai() { window.location.href = destino; }
+      /* a previa de arquivo unico troca de palco sem recarregar nada; quando
+         ela assume a navegacao, nao ha para onde ir */
+      function vai() {
+        if (window.Roteador && window.Roteador(destino)) return;
+        window.location.href = destino;
+      }
       if (window.Transicao) window.Transicao.sai(px, py, vai);
       else setTimeout(vai, DURACAO);
     });
