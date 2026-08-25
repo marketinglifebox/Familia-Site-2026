@@ -144,5 +144,10 @@ window.Carrossel = function (caixa, trilho, opcoes) {
   centraliza();
   window.addEventListener('resize', function () { medir(); agenda(); }, { passive: true });
 
-  return { centraliza: centraliza, medir: medir, pinta: pinta, cartoes: cartoes, trilho: trilho };
+  /* enquanto a fileira está escondida todas as medidas dão zero, e o
+     enquadramento de repouso sai errado; guardar a instância permite
+     reenquadrá-la assim que ela aparece */
+  var api = { centraliza: centraliza, medir: medir, pinta: pinta, cartoes: cartoes, trilho: trilho };
+  (window.Carrosseis = window.Carrosseis || []).push(api);
+  return api;
 };
