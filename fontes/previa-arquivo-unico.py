@@ -16,10 +16,13 @@ Duas regras que ja quebraram a previa antes, e por isso estao anotadas:
   com o marcador de secao de mesmo nome e cliques.js trataria o link como
   ancora da propria pagina: rolaria, sem trocar de palco.
 
+O arquivo sai com a marca da versao no nome e no titulo: sem isso nao da
+para saber, olhando a previa, se ela e a de agora ou uma baixada antes.
+
 Uso:  python3 fontes/previa-arquivo-unico.py
-Sai em /tmp/familia-lifebox-preview.html
+Sai em /tmp/previa-familia-lifebox-<versao>.html
 """
-import base64, re, os
+import base64, re, os, subprocess, datetime
 ROOT=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..')+os.sep
 def b64(path, mime):
     return 'data:%s;base64,%s'%(mime, base64.b64encode(open(ROOT+path,'rb').read()).decode())
@@ -102,11 +105,25 @@ for i,(u,n) in enumerate(Counter(uris).items()):
 js_main=js_main.replace("var stage = document.getElementById('stage');","var stage = null;")
 js_main=js_main.replace("var wrap  = document.getElementById('stageWrap');","var wrap  = null;")
 
+# marca da versao: hash do commit + data, para dar para conferir de olho qual
+# previa esta aberta
+try:
+    VERSAO=subprocess.check_output(['git','-C',ROOT,'rev-parse','--short','HEAD'],
+                                   text=True).strip()
+except Exception:
+    VERSAO='sem-git'
+DATA=datetime.date.today().isoformat()
+MARCA='%s %s'%(DATA, VERSAO)
+
 out=[]
 out.append('<meta charset="utf-8">')
-out.append('<title>Família Lifebox</title>')
+out.append('<title>Família Lifebox — prévia %s</title>'%MARCA)
 out.append('<style>\n%s\n</style>'%css)
-out.append('<style>.stage-wrap[hidden]{display:none}</style>')
+out.append('<style>.stage-wrap[hidden]{display:none}'
+           '.marca-previa{position:fixed;left:8px;bottom:8px;z-index:2147483647;'
+           'font:11px/1 system-ui,sans-serif;color:#8a8078;background:rgba(253,246,239,.85);'
+           'padding:4px 7px;border-radius:4px;pointer-events:none}</style>')
+out.append('<div class="marca-previa">prévia %s</div>'%MARCA)
 out.append(home)
 out.append(quem.replace('<div class="stage-wrap" id="wrapQuem"','<div class="stage-wrap" id="wrapQuem" hidden',1))
 out.append(valo.replace('<div class="stage-wrap" id="wrapValo"','<div class="stage-wrap" id="wrapValo" hidden',1))
@@ -185,5 +202,6 @@ out.append('<script>\n%s\n</script>'%js_nav)
 out.append('<script>\n%s\n</script>'%js_car)
 out.append('<script>\n%s\n</script>'%js_ben)
 out.append('<script>\n%s\n</script>'%js_val)
-open('/tmp/familia-lifebox-preview.html','w').write('\n'.join(out))
-print('bytes:', os.path.getsize('/tmp/familia-lifebox-preview.html'))
+SAIDA='/tmp/previa-familia-lifebox-%s.html'%VERSAO
+open(SAIDA,'w').write('\n'.join(out))
+print('%s  (%d bytes, %s)'%(SAIDA, os.path.getsize(SAIDA), MARCA))
