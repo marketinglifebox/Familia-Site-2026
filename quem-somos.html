@@ -11,12 +11,18 @@
    antes da primeira pintura */
 (function(){try{var m=sessionStorage.getItem('transicao');if(!m)return;var p=m.split(',');
 var r=document.documentElement;r.style.setProperty('--tx',p[0]);r.style.setProperty('--ty',p[1]);
-r.classList.add('transicao','chega');
+r.classList.add('transicao','chega','sem-carregando');
 /* rede de seguranca: se transicao.js nao carregar, a pagina nao pode ficar
    presa atras da bola */
 setTimeout(function(){r.classList.remove('transicao','chega');},3000);}catch(e){}})();</script>
 </head>
 <body class="bg-cream">
+<!-- tela de carregamento: sai sozinha quando a pagina esta inteira -->
+<div class="carregando" id="carregando" role="status" aria-live="polite">
+  <div class="carregando-anel" aria-hidden="true"></div>
+  <span class="sr-only-abs">Carregando…</span>
+</div>
+
 
 <!-- ==========================================================================
      PALCO 1512 x 3486 px — mesma prancha do documento original (página 2)
@@ -141,6 +147,7 @@ setTimeout(function(){r.classList.remove('transicao','chega');},3000);}catch(e){
 </main>
 </div>
 
+<script src="assets/js/carregando.js"></script>
 <script src="assets/js/transicao.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/cliques.js"></script>

@@ -157,6 +157,49 @@
     0%,100%{ background-color:#E86532 } 40%{ background-color:#EB7C25 }
   }
 
+  /* ---- Tela de carregamento ---------------------------------------------
+     Cobre a pagina ate ela estar inteira - fontes medidas e imagens
+     baixadas. Sem ela o palco aparece em pedacos: primeiro o texto na fonte
+     de reserva, com outra medida, depois as fotos entrando uma a uma.
+
+     Nada aqui depende de baixar arquivo nenhum. Os dois arcos sao a borda de
+     um div, entao a tela pinta junto com a folha de estilo, sem esperar por
+     SVG nem por fonte - que e justamente o que ela existe para esconder.
+
+     O laranja e o verde sao os mesmos que se cruzam nas curvas de fundo de
+     todas as paginas; e o desenho da casa, girando. --------------------- */
+  .carregando{
+    position:fixed; inset:0; z-index:10000;
+    display:flex; align-items:center; justify-content:center;
+    background:#FDF6EF;
+    transition:opacity .42s ease, visibility 0s .42s;
+  }
+  .carregando.saiu{ opacity:0; visibility:hidden; }
+  /* sem JavaScript nao ha quem a tire da frente; e quem chegou por um clique
+     ja vem coberto pela bola da transicao, que faz o mesmo papel */
+  .no-js .carregando,
+  .sem-carregando .carregando{ display:none; }
+
+  .carregando-anel{ position:relative; width:76px; height:76px; }
+  .carregando-anel::before,
+  .carregando-anel::after{
+    content:''; position:absolute; border-radius:50%; border:5px solid transparent;
+  }
+  .carregando-anel::before{
+    inset:0; border-top-color:#E86532; border-right-color:#E86532;
+    animation:carregando-gira 1.05s linear infinite;
+  }
+  .carregando-anel::after{
+    inset:15px; border-bottom-color:#489A54;
+    animation:carregando-gira 1.7s linear infinite reverse;
+  }
+  @keyframes carregando-gira{ to{ transform:rotate(1turn) } }
+
+  @media (prefers-reduced-motion: reduce){
+    .carregando-anel::before,
+    .carregando-anel::after{ animation:none; }
+  }
+
   /* ---- Transicao entre paginas -----------------------------------------
      Uma bola laranja nasce no ponto do clique, cobre a tela, e do outro lado
      encolhe de volta para o mesmo ponto. O ponto atravessa a troca de pagina

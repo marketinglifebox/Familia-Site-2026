@@ -82,6 +82,7 @@ home, quem, valo, trab = liga(home), liga(quem), liga(valo), liga(trab)
 js_main=open(ROOT+'assets/js/main.js').read()
 js_hab=open(ROOT+'assets/js/habitos.js').read()
 js_pil=open(ROOT+'assets/js/pilares.js').read()
+js_car_tela=open(ROOT+'assets/js/carregando.js').read()
 js_tra=open(ROOT+'assets/js/transicao.js').read()
 js_nav=open(ROOT+'assets/js/cliques.js').read()
 js_car=open(ROOT+'assets/js/carrossel.js').read()
@@ -125,6 +126,11 @@ out.append('<style>.stage-wrap[hidden]{display:none}'
            'font:11px/1 system-ui,sans-serif;color:#8a8078;background:rgba(253,246,239,.85);'
            'padding:4px 7px;border-radius:4px;pointer-events:none}</style>')
 out.append('<div class="marca-previa">prévia %s</div>'%MARCA)
+# a tela de carregamento tambem vale aqui: este arquivo carrega o site
+# inteiro de uma vez, com todas as fotos embutidas
+out.append('<div class="carregando" id="carregando" role="status" aria-live="polite">'
+           '<div class="carregando-anel" aria-hidden="true"></div>'
+           '<span class="sr-only-abs">Carregando…</span></div>')
 out.append(home)
 out.append(quem.replace('<div class="stage-wrap" id="wrapQuem"','<div class="stage-wrap" id="wrapQuem" hidden',1))
 out.append(valo.replace('<div class="stage-wrap" id="wrapValo"','<div class="stage-wrap" id="wrapValo" hidden',1))
@@ -196,6 +202,7 @@ out.append('''<script>
   rota();
 })();
 </script>''')
+out.append('<script>\n%s\n</script>'%js_car_tela)
 out.append('<script>\n%s\n</script>'%js_hab)
 out.append('<script>\n%s\n</script>'%js_pil)
 out.append('<script>\n%s\n</script>'%js_tra)

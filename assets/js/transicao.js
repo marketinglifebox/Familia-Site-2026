@@ -20,7 +20,7 @@ window.Transicao = (function () {
   var FOLGA   = 70;    /* ms de sobra antes de trocar de página: sem ela, um
                           quadro atrasado troca a página com a bola ainda
                           crescendo, e a troca aparece */
-  var TETO    = 320;   /* ms: tempo máximo esperando a página nova assentar */
+  var TETO    = 900;   /* ms: tempo máximo esperando a página nova assentar */
   var REVELA  = 760;   /* ms até a bola sumir de vez (maior que a transição) */
   var raiz    = document.documentElement;
   var parado  = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -73,11 +73,18 @@ window.Transicao = (function () {
       try { sessionStorage.removeItem(CHAVE); } catch (_) {}
       return;
     }
-    var feito = false;
+    /* quem chega por um clique nao ve a tela de carregamento: a bola faz o
+       mesmo papel. Entao ela espera o mesmo que a tela esperaria - fontes
+       medidas e imagens baixadas - antes de revelar, com um teto para nao
+       segurar a pagina por causa de uma foto que demora. */
+    var feito = false, faltam = 2;
     function agora() { if (!feito) { feito = true; revela(); } }
+    function marca() { if (--faltam <= 0) agora(); }
     setTimeout(agora, TETO);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(agora);
-    else window.addEventListener('load', agora);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(marca, marca);
+    else marca();
+    if (document.readyState === 'complete') marca();
+    else window.addEventListener('load', marca);
   }
 
   /* voltando pelo histórico o navegador restaura a página como ela estava;
