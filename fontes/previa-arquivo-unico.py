@@ -142,14 +142,15 @@ out.append('''<script>
                {wrap:'wrapQuem',stage:'stage-wrapQuem',h:3486},
                {wrap:'wrapValo',stage:'stage-wrapValo',h:2832},
                {wrap:'wrapTrab',stage:'stage-wrapTrab',h:2310}];
-  /* mesma regra do main.js: nunca passa de 1 - acima disso a pagina nao fica
-     maior, fica ampliada - e as faixas de cor cheia transbordam a sobra para
-     encostar na borda da tela */
+  /* mesma regra do main.js: teto de 0,8 - o documento e uma prancha de
+     apresentacao, e a 100% o texto fica grande demais para a distancia de
+     monitor - e as faixas de cor cheia transbordam a sobra para encostar na
+     borda da tela */
   function ajusta(){
     paginas.forEach(function(p){
       var w=document.getElementById(p.wrap), s=document.getElementById(p.stage);
       if(!w||!s||w.hidden) return;
-      var k=Math.min(1, w.clientWidth/1512);
+      var k=Math.min(0.8, w.clientWidth/1512);
       var sobra=Math.max(0, w.clientWidth-1512*k);
       s.style.setProperty('--k',k);
       s.style.setProperty('--dx',(sobra/2).toFixed(2)+'px');

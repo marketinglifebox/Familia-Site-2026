@@ -105,7 +105,7 @@
   }
   /* fallback sem JS */
   @supports (zoom:1){
-    .no-js .stage{ transform:none; zoom:min(1, calc(100vw / 1512)); margin:0 auto; }
+    .no-js .stage{ transform:none; zoom:min(.8, calc(100vw / 1512)); margin:0 auto; }
   }
 
   /* ---- Faixas que encostam na borda da tela ----------------------------
