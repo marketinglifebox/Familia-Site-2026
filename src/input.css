@@ -226,10 +226,23 @@
   .pilha-botao.clicou{ animation-name:nav-toque, pilha-brilho; animation-duration:.26s, .32s; }
   @keyframes pilha-brilho{ 0%,100%{ background-color:#FDF6EF } 45%{ background-color:#FFFFFF } }
 
+  /* ---- Logo do cabecalho: mesma resposta ao clique do menu --------------
+     O logo carrega scale(.6) no proprio transform, entao ele afunda pela
+     propriedade translate, que se compoe com o transform em vez de apaga-lo
+     (com transform, a escala sumiria no meio da animacao). ---------------- */
+  a.logo{ cursor:pointer; }
+  a.logo:active{ translate:0 2px; }
+  a.logo.clicou{ animation:logo-toque .26s cubic-bezier(.22,.9,.28,1); }
+  @keyframes logo-toque{
+    0%{ translate:0 0 } 35%{ translate:0 3px }
+    70%{ translate:0 -1.5px } 100%{ translate:0 0 }
+  }
+
   @media (prefers-reduced-motion: reduce){
     .nav-link.clicou, .nav-botao.clicou, .nav-botao.clicou + .nav-botao-rotulo,
     .nav-link.clicou::after,
-    .marca-link.clicou, .pilha-botao.clicou, .pilha-botao.clicou + .pilha-rotulo{ animation:none; }
+    .marca-link.clicou, .pilha-botao.clicou, .pilha-botao.clicou + .pilha-rotulo,
+    a.logo.clicou{ animation:none; }
   }
 
   /* ---- Faixas "TRABALHE CONOSCO" ---------------------------------------- */

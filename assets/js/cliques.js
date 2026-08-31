@@ -1,9 +1,10 @@
 /* ==========================================================================
    Cliques com resposta.
 
-   Vale para os itens do menu e para os atalhos de "No Lifebox acreditamos em"
-   (a marca e o botão logo abaixo dela). O elemento afunda e volta; nos itens
-   do menu um risco laranja passa por baixo, e na marca ela dá um pulinho.
+   Vale para o logo do cabeçalho, para os itens do menu e para os atalhos de
+   "No Lifebox acreditamos em" (a marca e o botão logo abaixo dela). O elemento
+   afunda e volta; nos itens do menu um risco laranja passa por baixo, e na
+   marca ela dá um pulinho.
 
    Elementos com o mesmo `data-toque` reagem juntos: clicar na marca anima
    também o botão, e vice-versa — os dois levam ao mesmo lugar.
@@ -16,7 +17,7 @@
 (function () {
   'use strict';
 
-  var SELETOR = '.nav-link, .nav-botao, .marca-link, .pilha-botao, .vaga-botao';
+  var SELETOR = 'a.logo, .nav-link, .nav-botao, .marca-link, .pilha-botao, .vaga-botao';
   var DURACAO = 320;   /* ms — um pouco mais que a mais longa das animações */
   var parado = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
