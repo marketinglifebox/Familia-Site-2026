@@ -120,6 +120,7 @@ out.append('<meta charset="utf-8">')
 out.append('<title>Família Lifebox — prévia %s</title>'%MARCA)
 out.append('<style>\n%s\n</style>'%css)
 out.append('<style>.stage-wrap[hidden]{display:none}'
+           'img{max-width:none}'   # alguns visualizadores impoem max-width:100%
            '.marca-previa{position:fixed;left:8px;bottom:8px;z-index:2147483647;'
            'font:11px/1 system-ui,sans-serif;color:#8a8078;background:rgba(253,246,239,.85);'
            'padding:4px 7px;border-radius:4px;pointer-events:none}</style>')
