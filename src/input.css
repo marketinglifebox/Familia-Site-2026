@@ -158,46 +158,52 @@
   }
 
   /* ---- Transicao entre paginas -----------------------------------------
-     A mesma bola do painel de "Nossos habitos", do tamanho da tela. E um
-     ::before do <html> para ja existir antes da primeira pintura da pagina
-     nova - senao daria um lampejo do conteudo antes de a bola cobrir.
-     300vmax garante que ela cubra a tela partindo de qualquer ponto.
+     Uma bola laranja nasce no ponto do clique, cobre a tela, e do outro lado
+     encolhe de volta para o mesmo ponto. O ponto atravessa a troca de pagina
+     pelo sessionStorage, entao o movimento e um so. Ela e um ::before do
+     <html> para ja existir antes da primeira pintura da pagina nova - senao
+     daria um lampejo do conteudo antes de a bola cobrir; 300vmax garante que
+     ela cubra a tela partindo de qualquer ponto.
 
-     Ida e volta tem tempos diferentes, e cada estado carrega o seu: a
-     transicao que vale e sempre a do estado de destino. Cobrindo, a bola
-     cresce depressa e de borda limpa; revelando, ela desacelera por muito
-     tempo, vai perdendo a borda no desfoque e se apaga no fim - e o que tira
-     o corte seco no fecho. ------------------------------------------------ */
+     A borda macia vem de um gradiente radial, e nao de um filter:blur(). Um
+     desfoque recalculado a cada quadro num elemento deste tamanho e caro, e
+     era o que fazia a transicao engasgar. Aqui so escala e opacidade mudam,
+     que o compositor resolve sozinho, e o movimento fica liso.
+
+     Ida e volta tem tempos proprios, e cada estado carrega o seu: a transicao
+     que vale e sempre a do estado de destino. ---------------------------- */
   .transicao::before{
     content:''; position:fixed; z-index:9999; pointer-events:none;
     left:calc(var(--tx,50) * 1vw); top:calc(var(--ty,50) * 1vh);
     width:300vmax; height:300vmax; margin:-150vmax 0 0 -150vmax;
-    border-radius:50%; background:#E86532;
-    transform:scale(0); opacity:0; filter:blur(30px);
-    will-change:transform, opacity, filter;
-    transition:transform .8s cubic-bezier(.16,1,.3,1),
-               filter    .8s ease-in,
-               opacity   .3s ease-in .5s;
+    border-radius:50%;
+    background:radial-gradient(closest-side,
+                 #E86532 0%, #E86532 97%, rgba(232,101,50,0) 100%);
+    opacity:1; transform:scale(0);
+    will-change:transform;
+    transition:transform .42s cubic-bezier(.4,0,.2,1);
   }
-  .transicao.chega::before{ transform:scale(1); opacity:1; filter:blur(0px); transition:none; }
-  .transicao.cobre::before{
-    transform:scale(1); opacity:1; filter:blur(0px);
-    transition:transform .43s cubic-bezier(.4,0,.2,1), opacity .1s linear, filter .18s linear;
+  /* cobrindo: cresce depressa e de uma vez so */
+  .transicao.cobre::before{ transform:scale(1); }
+  /* chegando: ja nasce cobrindo, sem transicao que a mostre crescendo */
+  .transicao.chega::before{ transform:scale(1); transition:none; }
+  /* revelando: encolhe com cauda longa e se apaga antes de virar um ponto -
+     e o que tira o corte seco no fecho, agora sem custar desfoque */
+  .transicao.entrando::before{
+    transform:scale(0); opacity:0;
+    transition:transform .58s cubic-bezier(.22,1,.36,1),
+               opacity   .26s ease-in .3s;
   }
 
-  /* a pagina nova nao so aparece: ela sobe um pouco e ganha corpo enquanto a
-     bola se desfaz. E o que faz a chegada parecer chegada, e nao um pano
-     sendo puxado.
+  /* a pagina nova ganha corpo enquanto a bola encolhe. So opacidade: mover a
+     pagina junto era um segundo movimento fora de compasso com o primeiro.
 
-     A volta e uma animacao, nao uma transicao: se por algum motivo ela nao
-     rodar, o estado natural do elemento ja e o certo (inteiro e no lugar).
-     Com transicao, a pagina ficaria presa a meio caminho. */
-  .transicao.chega .stage-wrap{ opacity:.3; transform:translateY(18px); }
-  .entrando .stage-wrap{ animation:entra-pagina .8s cubic-bezier(.16,1,.3,1) both; }
-  @keyframes entra-pagina{
-    from{ opacity:.3; transform:translateY(18px) }
-    to  { opacity:1;  transform:none }
-  }
+     E uma animacao, nao uma transicao: se por algum motivo ela nao rodar, o
+     estado natural do elemento ja e o certo (inteira e opaca). Com transicao,
+     a pagina ficaria presa a meio caminho. */
+  .transicao.chega .stage-wrap{ opacity:.55; }
+  .entrando .stage-wrap{ animation:entra-pagina .5s ease-out both; }
+  @keyframes entra-pagina{ from{ opacity:.55 } to{ opacity:1 } }
 
   @media (prefers-reduced-motion: reduce){
     .transicao::before{ display:none; }

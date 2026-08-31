@@ -15,10 +15,13 @@ window.Transicao = (function () {
   'use strict';
 
   var CHAVE   = 'transicao';
-  var ESPERA  = 110;   /* ms antes de a bola sair — dá para ver o toque no botão */
-  var COBRE   = 430;   /* ms de crescimento (igual ao CSS) */
-  var TETO    = 700;   /* ms: tempo máximo esperando a página nova assentar */
-  var REVELA  = 1150;  /* ms até a bola sumir de vez (maior que a transição) */
+  var ESPERA  = 80;    /* ms antes de a bola sair — dá para ver o toque no botão */
+  var COBRE   = 420;   /* ms de crescimento (igual ao CSS) */
+  var FOLGA   = 70;    /* ms de sobra antes de trocar de página: sem ela, um
+                          quadro atrasado troca a página com a bola ainda
+                          crescendo, e a troca aparece */
+  var TETO    = 320;   /* ms: tempo máximo esperando a página nova assentar */
+  var REVELA  = 760;   /* ms até a bola sumir de vez (maior que a transição) */
   var raiz    = document.documentElement;
   var parado  = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -42,7 +45,7 @@ window.Transicao = (function () {
     setTimeout(function () {
       raiz.classList.add('transicao');
       setTimeout(function () { raiz.classList.add('cobre'); }, 24);
-      setTimeout(feito, COBRE + 24);
+      setTimeout(feito, COBRE + 24 + FOLGA);
     }, ESPERA);
   }
 
