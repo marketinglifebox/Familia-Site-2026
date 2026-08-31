@@ -16,7 +16,12 @@ window.Carrossel = function (caixa, trilho, opcoes) {
   if (!caixa || !trilho) return null;
   opcoes = opcoes || {};
 
-  var LARGURA = 1512;                    /* largura do palco */
+  /* a fileira ocupa a largura do palco, mas numa tela mais larga ela sangra
+     para os lados (ver .sangra no CSS) - entao a medida util e a caixa */
+  function largura() { return caixa.clientWidth || 1512; }
+  function sangra() {
+    return parseFloat(getComputedStyle(caixa).getPropertyValue('--sangra')) || 0;
+  }
   var ZONA    = opcoes.zona || 430;      /* faixa onde o desfoque age */
   var MAX     = opcoes.desfoque == null ? 12 : opcoes.desfoque;   /* desfoque máximo, px */
   var ESMAECE = opcoes.esmaece == null ? 0.55 : opcoes.esmaece;   /* quanto apaga */
@@ -54,7 +59,10 @@ window.Carrossel = function (caixa, trilho, opcoes) {
 
   function centraliza() {
     medir();
-    caixa.scrollLeft = umBloco + recuo;
+    /* o recuo foi medido no documento, com a fileira do tamanho do palco; com
+       a sangra a janela alargou para os dois lados, e somar a sobra da
+       esquerda mantem o mesmo enquadramento no meio da tela */
+    caixa.scrollLeft = umBloco + recuo + sangra();
     pinta();
   }
 
@@ -71,13 +79,13 @@ window.Carrossel = function (caixa, trilho, opcoes) {
     var rolagem = caixa.scrollLeft;
     for (var i = 0; i < cartoes.length; i++) {
       var c = cartoes[i];
-      var esq = c.offsetLeft - rolagem, dir = esq + c.offsetWidth, t;
+      var esq = c.offsetLeft - rolagem, dir = esq + c.offsetWidth, t, L = largura();
       if (MODO === 'fora') {
-        var fora = Math.max(0, -esq, dir - LARGURA) / c.offsetWidth;
+        var fora = Math.max(0, -esq, dir - L) / c.offsetWidth;
         t = Math.min(1, Math.max(0, (fora - 0.5) / 0.42));
       } else {
         var meio = esq + c.offsetWidth / 2;
-        var borda = Math.min(meio, LARGURA - meio);
+        var borda = Math.min(meio, L - meio);
         t = borda >= ZONA ? 0 : (borda <= 0 ? 1 : (ZONA - borda) / ZONA);
       }
       t = t * t;                                   /* começa suave */
@@ -96,7 +104,7 @@ window.Carrossel = function (caixa, trilho, opcoes) {
   /* o palco inteiro é escalado, então o deslocamento do ponteiro precisa ser
      convertido de pixels de tela para pixels do projeto */
   var arrastando = false, x0 = 0, s0 = 0, moveu = 0;
-  function escala() { return caixa.getBoundingClientRect().width / LARGURA || 1; }
+  function escala() { return caixa.getBoundingClientRect().width / largura() || 1; }
 
   caixa.addEventListener('pointerdown', function (e) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;

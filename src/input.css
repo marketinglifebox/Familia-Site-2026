@@ -100,13 +100,28 @@
   .stage{
     position:relative; width:1512px; height:5577px;
     transform-origin:top left;
-    transform:scale(var(--k,1));
+    transform:translateX(var(--dx,0px)) scale(var(--k,1));
     background:#FDF6EF;
   }
   /* fallback sem JS */
   @supports (zoom:1){
-    .no-js .stage{ transform:none; zoom:calc(100vw / 1512); }
+    .no-js .stage{ transform:none; zoom:min(1, calc(100vw / 1512)); margin:0 auto; }
   }
+
+  /* ---- Faixas que encostam na borda da tela ----------------------------
+     Numa tela mais larga que 1512px o palco fica no tamanho desenhado e
+     centralizado, com creme sobrando dos dois lados. As faixas de cor cheia
+     nao podem parar ali: uma tarja laranja que termina no meio da tela le-se
+     como defeito. Elas transbordam pelos dois lados exatamente a sobra, e o
+     .stage-wrap (overflow:hidden) corta no lugar certo.
+
+     O !important e proposital: estes elementos carregam left-0 e w-[1512px]
+     do tailwind, e e justamente isso que precisa ser vencido. ------------- */
+  .sangra{
+    left:calc(var(--sangra,0px) * -1) !important;
+    width:calc(1512px + var(--sangra,0px) * 2) !important;
+  }
+  img.sangra{ object-fit:fill; }   /* desenho organico: esticar nao se nota */
 
   /* ---- Camada de fundo -------------------------------------------------
      As curvas decorativas ficam atras de TODO o conteudo do palco. Alem de
