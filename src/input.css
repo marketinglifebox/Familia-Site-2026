@@ -392,6 +392,19 @@
   }
   .habitos.aberto .painel-conteudo{ opacity:1; }
 
+  /* titulo do habito: cresce para cima a partir da linha do texto.
+     Os habitos tem nomes de tamanhos muito diferentes - de "SINERGIA" a
+     "COMPREENDER PRIMEIRO PARA DEPOIS SER COMPREENDIDO" -, entao o corpo e
+     ajustado em habitos.js ate caber na coluna. Ancorar por baixo mantem o
+     paragrafo na altura exata do documento, seja qual for o numero de
+     linhas do titulo. */
+  .painel-titulo{
+    position:absolute; left:877px; bottom:552.02px; width:566px;
+    margin:0; white-space:normal; line-height:.92;
+    font-family:'Fira Sans Condensed','Arial Narrow',sans-serif;
+    font-weight:700; color:#E86532; letter-spacing:-1.987px;
+  }
+
   /* bloco de titulo que encolhe e reposiciona quando a aba abre */
   .habitos-titulo{
     position:absolute; left:0; top:0; width:1512px; height:1247px;

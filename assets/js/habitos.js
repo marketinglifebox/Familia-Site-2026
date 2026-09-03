@@ -11,38 +11,46 @@
   'use strict';
 
   /* ---- Conteúdo dos hábitos -------------------------------------------
-     PROATIVIDADE foi transcrito do PDF. Os demais textos são provisórios —
-     basta substituir titulo/texto abaixo pelos definitivos.               */
+     Os sete hábitos, com o texto do material do cliente. Cada símbolo já
+     existente foi correlacionado ao hábito que ele desenha: a cabeça com o
+     alvo para o objetivo em mente, as mãos erguendo a medalha para o que vem
+     primeiro, o cérebro para o pensamento, as mãos em coração para o cuidado
+     consigo. As aspas são do próprio material.                             */
   var HABITOS = {
-    atendimento: {
-      titulo: 'ATENDIMENTO',
-      texto: 'Eu sirvo com atenção genuína. Cada pessoa que entra na Lifebox merece ser vista, ouvida e bem cuidada do começo ao fim.'
-    },
-    excelencia: {
-      titulo: 'EXCELÊNCIA',
-      texto: 'Eu entrego o meu melhor em cada detalhe. Faço bem feito na primeira vez e não me acostumo com o suficiente.'
-    },
-    colaboracao: {
-      titulo: 'COLABORAÇÃO',
-      texto: 'Eu construo junto. Compartilho o que sei, peço ajuda quando preciso e celebro o resultado como time.'
-    },
     proatividade: {
       titulo: 'PROATIVIDADE',
-      texto: 'Eu sou autor da minha vida. Sou responsável pelas minhas escolhas e ações independentes das circunstâncias externas.'
-    },
-    mentalidade: {
-      titulo: 'MENTALIDADE DE DONO',
-      texto: 'Eu cuido do negócio como se fosse meu. Penso no todo, zelo pelos recursos e assumo o resultado das minhas decisões.'
+      texto: '“Eu sou o autor da minha vida. Sou responsável pelas minhas escolhas e ações, independente das circunstâncias externas”'
     },
     foco: {
-      titulo: 'FOCO EM RESULTADO',
-      texto: 'Eu sei aonde quero chegar. Priorizo o que gera valor, acompanho os números e transformo esforço em resultado.'
+      titulo: 'COMECE COM OBJETIVO EM MENTE',
+      texto: '“Eu vejo o destino antes de começar a jornada tendo clareza sobre os objetivos e propósito antes de agir.”'
+    },
+    atendimento: {
+      titulo: 'COMPREENDER PRIMEIRO PARA DEPOIS SER COMPREENDIDO',
+      texto: '“Eu ouço para entender, não para responder. Mantenho abertura para diferentes pontos de vistas e experiências.”'
+    },
+    excelencia: {
+      titulo: 'PRIMEIRO O MAIS IMPORTANTE',
+      texto: '“A prioridade guia minhas ações. Priorização conforme objetivos e valores pessoais. Tarefas importantes acima das urgentes.”'
+    },
+    colaboracao: {
+      titulo: 'SINERGIA',
+      texto: '“Juntos somos mais fortes.”'
+    },
+    mentalidade: {
+      titulo: 'PENSAMENTO GANHA-GANHA',
+      texto: '“Eu próspero ao criar valor para todos, colaboração onde todos podem sair beneficiados.”'
     },
     cuidado: {
-      titulo: 'CUIDADO',
-      texto: 'Eu trato as pessoas com respeito e empatia. Cuido de quem está ao meu lado e do ambiente que construímos juntos.'
+      titulo: 'AFINE O INSTRUMENTO',
+      texto: '“Cuidar de mim (físico, emocional, mental e espiritual) é meu maior investimento a fim de fazer o equilíbrio e a eficácia a longo prazo.”'
     }
   };
+
+  /* corpos possíveis do título, do tamanho do documento para baixo: o maior
+     que couber na altura reservada é o que vale */
+  var CORPOS = [96.68, 82, 70, 60, 52, 46];
+  var TETO_TITULO = 210;   /* px de altura para o título, acima do parágrafo */
 
   /* ---- Layout aberto: 6 vagas medidas no PDF da aba (centro x, y, diâmetro) */
   var VAGAS = {
@@ -77,6 +85,14 @@
     b.setAttribute('aria-expanded', 'false');
   });
 
+  /* o maior corpo em que o título ainda cabe na altura reservada */
+  function ajustaTitulo() {
+    for (var i = 0; i < CORPOS.length; i++) {
+      titulo.style.fontSize = CORPOS[i] + 'px';
+      if (titulo.offsetHeight <= TETO_TITULO || i === CORPOS.length - 1) return;
+    }
+  }
+
   function mover(b, alvo) {
     var s  = alvo.d / (+b.dataset.d);
     var dx = alvo.cx - (+b.dataset.cx);
@@ -109,6 +125,7 @@
     icone.src = b.querySelector('img').getAttribute('src');
     icone.alt = dados.titulo;
     titulo.textContent = dados.titulo;
+    ajustaTitulo();
     texto.innerHTML = '<p>' + dados.texto + '</p>';
 
     /* posições */
