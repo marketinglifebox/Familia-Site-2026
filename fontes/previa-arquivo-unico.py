@@ -87,6 +87,7 @@ js_tra=open(ROOT+'assets/js/transicao.js').read()
 js_nav=open(ROOT+'assets/js/cliques.js').read()
 js_car=open(ROOT+'assets/js/carrossel.js').read()
 js_ben=open(ROOT+'assets/js/beneficios.js').read()
+js_emp=open(ROOT+'assets/js/empresas.js').read()
 js_val=open(ROOT+'assets/js/valores.js').read()
 # caminhos de imagem dentro do JS viram data URIs
 def jsimg(m):
@@ -216,6 +217,7 @@ out.append('<script>\n%s\n</script>'%js_tra)
 out.append('<script>\n%s\n</script>'%js_nav)
 out.append('<script>\n%s\n</script>'%js_car)
 out.append('<script>\n%s\n</script>'%js_ben)
+out.append('<script>\n%s\n</script>'%js_emp)
 out.append('<script>\n%s\n</script>'%js_val)
 SAIDA='/tmp/previa-familia-lifebox-%s.html'%VERSAO
 open(SAIDA,'w').write('\n'.join(out))
