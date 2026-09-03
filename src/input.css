@@ -502,21 +502,72 @@
   .valor-carrossel::-webkit-scrollbar{ display:none; }
   .valor-carrossel.arrastando{ cursor:grabbing; }
 
-  .valor-trilho{ display:flex; gap:51px; width:max-content; }
+  .valor-trilho{ display:flex; gap:24px; width:max-content; padding:6px 0 14px; }
 
+  /* --- cartao de valor ---------------------------------------------------
+     Em repouso mostra so o icone e o nome, centrados; no hover o cartao vira
+     azul e o conteudo sobe para dar lugar a descricao. O deslocamento e a
+     descricao andam juntos, entao nada salta: a altura do cartao ja e a da
+     versao aberta, e o que muda e onde o conteudo se apoia dentro dela. --- */
   .valor{
-    position:relative; flex:0 0 auto; width:729px; height:259px; background:#E86532;
-    --desfoque:0px; --esmaece:1;
+    position:relative; flex:0 0 auto; width:400px; height:460px;
+    background:#E86532; border-radius:24px; overflow:hidden;
+    --desfoque:0px; --esmaece:1; --repouso:96px;
     filter:blur(var(--desfoque)); opacity:var(--esmaece);
+    transition:background-color .34s ease;
   }
   .valor-carrossel.arrastando .valor{ will-change:filter, opacity; }
+  .valor:focus-visible{ outline:3px solid #FDF6EF; outline-offset:-8px; }
 
-  .valor-nome,.valor-sub{
-    position:absolute; left:0; right:12px; text-align:center; white-space:nowrap;
-    line-height:1; font-family:'Fira Sans Condensed','Arial Narrow',sans-serif; color:#FDF6EF;
+  .valor-corpo{
+    position:absolute; inset:0; padding:26px 32px 0;
+    display:flex; flex-direction:column; align-items:flex-start;
+    transform:translateY(var(--repouso));
+    transition:transform .38s cubic-bezier(.22,.9,.28,1);
   }
-  .valor-nome{ top:85.46px; font-size:68.116px; font-weight:700; letter-spacing:0.4545px; }
-  .valor-sub { top:145.46px; font-size:42.647px; font-weight:400; letter-spacing:1.6px; }
+  .valor-icone{
+    width:100%; height:165px; display:flex; align-items:center; justify-content:center;
+  }
+  .valor-icone img{ max-width:230px; max-height:165px; object-fit:contain; }
+  /* icone ainda nao entregue: a marca da casa, discreta, no lugar dele */
+  .valor-icone.sem-icone{ opacity:.5; }
+  .valor-icone.sem-icone img{ display:none; }
+  .valor-icone.sem-icone::after{
+    content:''; width:96px; height:93px;
+    background:url('../svg/logo-mark-cream.svg') no-repeat center/contain;
+  }
+
+  .valor-nome{
+    margin:20px 0 0; line-height:1.12;
+    font-family:'Fira Sans Condensed','Arial Narrow',sans-serif;
+    font-size:27px; font-weight:600; letter-spacing:.4px; color:#FDF6EF;
+  }
+  .valor-desc{
+    margin:14px 0 0; line-height:1.44;
+    font-family:'Fira Sans', system-ui, sans-serif;
+    font-size:18.5px; font-weight:400; color:#FDF6EF;
+    opacity:0; transition:opacity .3s ease .04s;
+  }
+
+  .valor:hover, .valor:focus-within{ background:#1B4697; }
+  .valor:hover .valor-corpo,
+  .valor:focus-within .valor-corpo{ transform:translateY(0); }
+  .valor:hover .valor-desc,
+  .valor:focus-within .valor-desc{ opacity:1; }
+  /* enquanto o texto deste valor nao chega, o cartao so muda de cor: subir o
+     conteudo para revelar um vazio seria pior do que nao subir */
+  .valor--sem-texto:hover .valor-corpo,
+  .valor--sem-texto:focus-within .valor-corpo{ transform:translateY(var(--repouso)); }
+
+  /* sem mouse nao ha hover: a descricao fica sempre a vista */
+  @media (hover:none){
+    .valor-corpo{ transform:none; }
+    .valor-desc{ opacity:1; }
+    .valor--sem-texto .valor-corpo{ transform:translateY(var(--repouso)); }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .valor, .valor-corpo, .valor-desc{ transition:none; }
+  }
 
   /* --- laterais desfocadas ---------------------------------------------
      Cada cartao ganha desfoque e transparencia conforme se aproxima das

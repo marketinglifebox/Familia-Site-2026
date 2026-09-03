@@ -41,6 +41,12 @@ window.Carrossel = function (caixa, trilho, opcoes) {
       var copia = c.cloneNode(true);
       copia.setAttribute('aria-hidden', 'true');
       Array.prototype.forEach.call(copia.querySelectorAll('img'), function (i) { i.alt = ''; });
+      /* a copia e decorativa: nao pode receber foco, senao o tabulador
+         percorreria a mesma fileira tres vezes */
+      if (copia.hasAttribute('tabindex')) copia.setAttribute('tabindex', '-1');
+      Array.prototype.forEach.call(
+        copia.querySelectorAll('a,button,input,select,textarea,[tabindex]'),
+        function (f) { f.setAttribute('tabindex', '-1'); });
       frag.appendChild(copia);          /* mantém a ordem original */
     });
     return frag;
@@ -59,10 +65,11 @@ window.Carrossel = function (caixa, trilho, opcoes) {
 
   function centraliza() {
     medir();
-    /* o recuo foi medido no documento, com a fileira do tamanho do palco; com
-       a sangra a janela alargou para os dois lados, e somar a sobra da
-       esquerda mantem o mesmo enquadramento no meio da tela */
-    caixa.scrollLeft = umBloco + recuo + sangra();
+    /* o recuo foi medido no documento, com a fileira do tamanho do palco. Com
+       a sangra a caixa comeca --sangra px a esquerda, entao descontar essa
+       sobra da rolagem mantem os cartoes na mesma posicao do palco - e o que
+       sobra para os lados sao os vizinhos, como convem a um carrossel */
+    caixa.scrollLeft = umBloco + recuo - sangra();
     pinta();
   }
 

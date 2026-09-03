@@ -88,20 +88,65 @@ setTimeout(function(){r.classList.remove('transicao','chega');},3000);}catch(e){
   <section>
     <h2 class="t cond font-bold text-orange left-[350.93px] top-[2181.5px] text-[117.9px] tracking-[0.5px]">NOSSOS VALORES</h2>
 
-    <!-- carrossel contínuo; em repouso, o enquadramento do documento -->
-    <div class="valor-carrossel sangra top-[2362px] h-[259px]" id="valorCarrossel" role="region" aria-label="Nossos valores">
+    <!-- carrossel contínuo; parado mostra ícone e nome, e o cartão sob o
+         ponteiro fica azul e abre a descrição -->
+    <div class="valor-carrossel sangra top-[2330px] h-[478px]" id="valorCarrossel" role="region" aria-label="Nossos valores">
       <div class="valor-trilho" id="valorTrilho">
-        <article class="valor">
-          <span class="valor-nome">EXPERIÊNCIA</span>
-          <span class="valor-sub">DO CLIENTE</span>
+        <article class="valor" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/auto-desenvolvimento.png" alt=""></span>
+            <h3 class="valor-nome">AUTO DESENVOLVIMENTO</h3>
+          <p class="valor-desc">Capacidade de conhecer sua identidade, valores, pontos fortes e fracos, e buscar melhorar constantemente.</p>
+          </div>
         </article>
-        <article class="valor">
-          <span class="valor-nome">INTELIGÊNCIA</span>
-          <span class="valor-sub">EMOCIONAL</span>
+        <article class="valor valor--sem-texto" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/autorresponsabilidade.png" alt=""></span>
+            <h3 class="valor-nome">AUTORRESPONSABILIDADE</h3>
+          <!-- descricao deste valor ainda nao entregue -->
+          </div>
         </article>
-        <article class="valor">
-          <span class="valor-nome">FOCO</span>
-          <span class="valor-sub">NO RESULTADO</span>
+        <article class="valor valor--sem-texto" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/foco-no-resultado.png" alt=""></span>
+            <h3 class="valor-nome">FOCO NO RESULTADO</h3>
+          <!-- descricao deste valor ainda nao entregue -->
+          </div>
+        </article>
+        <article class="valor" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/meritocracia.png" alt=""></span>
+            <h3 class="valor-nome">MERITOCRACIA</h3>
+          <p class="valor-desc">Valorização baseada em resultados, premiando o esforço e desempenho, sem rivalidade. O sucesso de um não impede o crescimento do outro — todos podem ganhar.</p>
+          </div>
+        </article>
+        <article class="valor" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/inteligencia-emocional.png" alt=""></span>
+            <h3 class="valor-nome">INTELIGÊNCIA EMOCIONAL</h3>
+          <p class="valor-desc">Habilidade de entender e gerir emoções, compreender as dos outros e lidar melhor com cada situação, mantendo o equilíbrio emocional e sabendo aplicar e receber feedbacks.</p>
+          </div>
+        </article>
+        <article class="valor" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/pensamento-positivo.png" alt=""></span>
+            <h3 class="valor-nome">PENSAMENTO POSITIVO</h3>
+          <p class="valor-desc">Visão positiva, vendo oportunidades em dificuldades. Reforçar o positivo, praticar gratidão, aceitar o que não se pode controlar, celebrar pequenas conquistas e entender que a felicidade está na jornada.</p>
+          </div>
+        </article>
+        <article class="valor" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/respeito.png" alt=""></span>
+            <h3 class="valor-nome">RESPEITO</h3>
+          <p class="valor-desc">Capacidade de agir com respeito, priorizando relações harmoniosas e um clima leve. Dar voz a todos, independentemente da função.</p>
+          </div>
+        </article>
+        <article class="valor valor--sem-texto" tabindex="0">
+          <div class="valor-corpo">
+            <span class="valor-icone"><img src="assets/img/valores/experiencia-do-cliente.png" alt=""></span>
+            <h3 class="valor-nome">EXPERIÊNCIA DO CLIENTE</h3>
+          <!-- descricao deste valor ainda nao entregue -->
+          </div>
         </article>
       </div>
     </div>
