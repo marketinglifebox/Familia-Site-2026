@@ -10,7 +10,7 @@
 
   /* parado, a fileira começa com o primeiro cartão à esquerda e os seguintes
      saindo pela moldura, para ficar claro que ela corre */
-  var c = window.Carrossel(caixa, trilho, { recuo: -140, passo: 424, modo: 'fora', desfoque: 6, esmaece: 0.25 });
+  var c = window.Carrossel(caixa, trilho, { recuo: -416, passo: 780, modo: 'fora', desfoque: 6, esmaece: 0.25 });
 
   /* ícone ainda não entregue: o quadro recebe a marca da casa em vez do ícone
      de imagem quebrada. Depois da triplicação, para alcançar também as cópias */
