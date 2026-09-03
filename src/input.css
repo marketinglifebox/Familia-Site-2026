@@ -309,6 +309,29 @@
     a.logo.clicou{ animation:none; }
   }
 
+  /* ---- Empresas do grupo -----------------------------------------------
+     Cada marca fica numa moldura tracejada, como no material. Enquanto o
+     arquivo do logo nao chega, a moldura mostra o nome da empresa no mesmo
+     tratamento do documento - e o nome que sai quando o logo entra, nao o
+     contrario: assim, se o arquivo faltar ou o JavaScript nao rodar, o que
+     se ve e o nome, nunca um icone de imagem quebrada. ------------------- */
+  .empresa{
+    position:absolute; width:224px; height:120px;
+    display:flex; align-items:center; justify-content:center;
+    border:2px dashed rgba(253,246,239,.62); border-radius:14px;
+  }
+  .empresa img{ display:none; max-width:172px; max-height:82px; object-fit:contain; }
+  .empresa.com-logo img{ display:block; }
+  .empresa.com-logo .empresa-nome{ display:none; }
+
+  .empresa-nome{
+    display:block; text-align:center; line-height:1;
+    font-family:'Fira Sans Condensed','Arial Narrow',sans-serif;
+    font-weight:600; color:#FDF6EF;
+  }
+  .empresa-nome b{ display:block; font-weight:600; font-size:49.06px; }
+  .empresa-nome i{ display:block; font-style:normal; font-size:31.75px; margin-top:6px; }
+
   /* ---- Faixas "TRABALHE CONOSCO" ---------------------------------------- */
   .marquee{ position:absolute; overflow:hidden; background:#489A54; }
   .marquee-track{
