@@ -9,7 +9,10 @@
    Perto das bordas cada cartão vai desfocando e esmaecendo, e como isso é
    recalculado a cada quadro da rolagem o efeito acompanha o arrasto.
 
-   Uso:  Carrossel(caixa, trilho, { recuo:124, passo:447 })
+   Com a opcao 'desliza' (px por segundo) a fileira ainda corre sozinha, para
+   quem so olha a pagina ver todos os cartoes sem precisar arrastar.
+
+   Uso:  Carrossel(caixa, trilho, { recuo:124, passo:447, desliza:80 })
    ========================================================================== */
 window.Carrossel = function (caixa, trilho, opcoes) {
   'use strict';
@@ -32,6 +35,7 @@ window.Carrossel = function (caixa, trilho, opcoes) {
   var MODO    = opcoes.modo || 'borda';
   var recuo   = opcoes.recuo || 0;       /* enquadramento inicial do documento */
   var passo   = opcoes.passo || 447;     /* salto de uma seta do teclado */
+  var DESLIZA = opcoes.desliza || 0;     /* deslize automatico, px por segundo */
 
   /* --- triplica os cartões para o laço ---------------------------------- */
   var originais = Array.prototype.slice.call(trilho.children);
@@ -155,6 +159,43 @@ window.Carrossel = function (caixa, trilho, opcoes) {
     if (e.key === 'ArrowRight') { caixa.scrollLeft += passo; e.preventDefault(); }
     if (e.key === 'ArrowLeft')  { caixa.scrollLeft -= passo; e.preventDefault(); }
   });
+
+  /* --- deslize contínuo -------------------------------------------------- */
+  /* a fileira anda sozinha para que todos os cartões passem pela tela sem
+     exigir arrasto. Ela para sempre que o visitante toma conta dela (ponteiro
+     em cima, foco no teclado, arrasto), quando sai da tela, quando a aba fica
+     escondida, e nunca começa para quem pediu menos movimento no sistema. */
+  var menosMovimento = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (DESLIZA && !(menosMovimento && menosMovimento.matches)) {
+    var emCima = false, naTela = true, resto = 0, ultimo = 0;
+
+    caixa.addEventListener('pointerenter', function () { emCima = true; });
+    caixa.addEventListener('pointerleave', function () { emCima = false; });
+    caixa.addEventListener('focusin',      function () { emCima = true; });
+    caixa.addEventListener('focusout',     function () { emCima = false; });
+
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entradas) {
+        naTela = entradas[0].isIntersecting;
+      }).observe(caixa);
+    }
+
+    var anda = function (agora) {
+      requestAnimationFrame(anda);
+      var dt = ultimo ? Math.min(100, agora - ultimo) : 0;   /* ignora o salto de uma aba que volta */
+      ultimo = agora;
+      if (!dt || emCima || arrastando || !naTela || document.hidden) return;
+      /* scrollLeft arredonda em alguns navegadores: o resto fracionário fica
+         guardado, senão um deslize lento não sairia do lugar */
+      resto += DESLIZA * dt / 1000;
+      var inteiro = Math.floor(resto);
+      if (!inteiro) return;
+      resto -= inteiro;
+      caixa.scrollLeft += inteiro;
+    };
+    requestAnimationFrame(anda);
+  }
 
   centraliza();
   window.addEventListener('resize', function () { medir(); agenda(); }, { passive: true });

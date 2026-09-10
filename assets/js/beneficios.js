@@ -41,7 +41,10 @@
 
   /* posição inicial: um cartão assomando à esquerda, como no documento
      (o recuo é medido a partir do início do bloco do meio) */
-  var carrossel = window.Carrossel(caixa, trilho, { recuo: -159, passo: 447 });
+  /* a fileira anda sozinha (80 px/s) para as dezessete fotos passarem pela
+     tela sem exigir arrasto; ela para assim que o ponteiro encosta */
+  var carrossel = window.Carrossel(caixa, trilho,
+                                   { recuo: -159, passo: 447, desliza: 80 });
 
   /* --- fotos ainda não entregues --------------------------------------- */
   /* doze benefícios ainda não têm foto e mostram, no lugar dela, um ícone
