@@ -153,10 +153,10 @@ out.append('''<script>
      legal cresceu as quatro paginas, esta lista continuou nos valores antigos
      e o wrap, que tem overflow:hidden, cortava fora tudo o que passasse da
      medida velha. */
-  var paginas=[{wrap:'wrapHome',stage:'stage-wrapHome',h:5731},
-               {wrap:'wrapQuem',stage:'stage-wrapQuem',h:3680},
-               {wrap:'wrapValo',stage:'stage-wrapValo',h:3026},
-               {wrap:'wrapTrab',stage:'stage-wrapTrab',h:2504}];
+  var paginas=[{wrap:'wrapHome',stage:'stage-wrapHome',h:5810},
+               {wrap:'wrapQuem',stage:'stage-wrapQuem',h:3798},
+               {wrap:'wrapValo',stage:'stage-wrapValo',h:3144},
+               {wrap:'wrapTrab',stage:'stage-wrapTrab',h:2622}];
   /* mesma regra do main.js: teto de 0,8 - o documento e uma prancha de
      apresentacao, e a 100% o texto fica grande demais para a distancia de
      monitor - e as faixas de cor cheia transbordam a sobra para encostar na

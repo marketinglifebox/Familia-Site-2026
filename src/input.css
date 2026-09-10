@@ -98,7 +98,7 @@
   /* ---- Palco de 1512x5577px: escala proporcionalmente na viewport ------- */
   .stage-wrap{ position:relative; width:100%; overflow:hidden; }
   .stage{
-    position:relative; width:1512px; height:5731px;
+    position:relative; width:1512px; height:5810px;
     transform-origin:top left;
     transform:translateX(var(--dx,0px)) scale(var(--k,1));
     background:#FDF6EF;
@@ -358,9 +358,9 @@
   /* ======================================================================
      PAGINA "QUEM SOMOS" (pagina 2)
      ====================================================================== */
-  .stage--quem{ height:3680px; }
-  .stage--valores{ height:3026px; }
-  .stage--trabalhe{ height:2504px; }
+  .stage--quem{ height:3798px; }
+  .stage--valores{ height:3144px; }
+  .stage--trabalhe{ height:2622px; }
 
   /* --- bloco laranja com brilho radial no canto superior direito -------- */
   .bloco-laranja{
@@ -630,18 +630,25 @@
     background:#E86532; color:#FDF6EF;
     font-family:'Fira Sans Condensed', 'Arial Narrow', sans-serif;
   }
-  .barra-legal-caixa{ position:absolute; left:111px; width:1263px; top:34px; }
-  .barra-legal--so-texto .barra-legal-caixa{ top:30px; }
+  .barra-legal-caixa{ position:absolute; left:111px; width:1263px; top:52px; }
 
+  /* a linha da marca e o cabecalho da barra: maior, com folga por baixo */
   .legal-marca{
-    display:flex; justify-content:space-between; gap:48px;
-    margin:0 0 18px; font-size:14.47px; line-height:1; letter-spacing:.6px;
+    display:flex; justify-content:space-between; gap:56px;
+    margin:0; font-size:17.5px; line-height:1.25; letter-spacing:.4px;
   }
+  .legal-regua{
+    height:1px; margin:28px 0; border:0; background:#FDF6EF; opacity:.34;
+  }
+
+  /* o miudo vai em duas colunas: numa linha so, a 1263px de largura, cada
+     linha passaria de 150 caracteres - largo demais para o olho reencontrar
+     o comeco da linha seguinte. Em duas colunas fica perto de 75. */
+  .legal-colunas{ display:flex; gap:63px; }
   .legal-texto{
-    margin:0; font-size:12.6px; line-height:1.62; letter-spacing:.18px;
-    opacity:.88;
+    flex:1 1 0; margin:0;
+    font-size:14.5px; line-height:1.78; letter-spacing:.18px; opacity:.92;
   }
-  .legal-texto + .legal-texto{ margin-top:12px; }
 
   /* ======================================================================
      PAGINA "TRABALHE CONOSCO" (pagina 4)
