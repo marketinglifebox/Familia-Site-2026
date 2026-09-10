@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
-"""Recorta as fotos dos beneficios a partir de um PDF.
+"""Recorta as fotos dos beneficios.
 
 Doze cartoes de "Beneficios Lifebox" ainda mostram um icone no lugar da foto.
-Assim que as fotos chegarem num PDF - uma por pagina, na ordem da lista abaixo
--, este script corta cada uma no formato do quadro (342x216, gravado em 2x) e
+Este script corta cada foto no formato do quadro (342x216, gravado em 2x) e
 grava em assets/img/ben-<nome>.jpg. O site troca o icone pela foto sozinho:
 beneficios.js so precisa que o arquivo exista.
 
-    python3 fontes/fotos-beneficios.py caminho/do/arquivo.pdf
+A entrada pode ser um PDF (uma foto por pagina) ou os proprios arquivos de
+imagem, na ordem da lista ORDEM:
 
-Para mandar so algumas fotos, passe os nomes na ordem das paginas:
+    python3 fontes/fotos-beneficios.py fotos.pdf
+    python3 fontes/fotos-beneficios.py rosa.jpg trofeu.jpg maos.jpg
 
-    python3 fontes/fotos-beneficios.py fotos.pdf cursos odonto transporte
+Para mandar so algumas, ponha os nomes depois de --nomes, na mesma ordem:
+
+    python3 fontes/fotos-beneficios.py fotos.pdf --nomes cursos odonto
+    python3 fontes/fotos-beneficios.py a.jpg b.jpg --nomes funeral premiacoes
 """
 import os
 import sys
@@ -39,23 +43,44 @@ def recorta(imagem, larg, alt):
     return nova.crop((esq, topo, esq + larg, topo + alt))
 
 
-def main(pdf, nomes):
-    doc = pymupdf.open(pdf)
-    if len(nomes) < len(doc):
-        sys.exit('o PDF tem %d paginas e so recebi %d nomes' % (len(doc), len(nomes)))
-
+def do_pdf(caminho):
+    """Uma foto por pagina: renderiza cada pagina como imagem."""
+    doc = pymupdf.open(caminho)
     larg, alt = QUADRO[0] * ESCALA, QUADRO[1] * ESCALA
-    for i, pagina in enumerate(doc):
+    for pagina in doc:
         # renderiza largo o bastante para o recorte nunca ampliar pixel
         zoom = max(larg / pagina.rect.width, alt / pagina.rect.height) * 1.5
         pix = pagina.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom))
-        foto = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
-        saida = DESTINO % nomes[i]
+        yield Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
+
+
+def entrada(caminhos):
+    for c in caminhos:
+        if c.lower().endswith('.pdf'):
+            for foto in do_pdf(c):
+                yield foto
+        else:
+            yield Image.open(c).convert('RGB')
+
+
+def main(caminhos, nomes):
+    fotos = list(entrada(caminhos))
+    if len(fotos) > len(nomes):
+        sys.exit('recebi %d fotos e so %d nomes' % (len(fotos), len(nomes)))
+
+    larg, alt = QUADRO[0] * ESCALA, QUADRO[1] * ESCALA
+    for foto, nome in zip(fotos, nomes):
+        saida = DESTINO % nome
         recorta(foto, larg, alt).save(saida, quality=88, optimize=True)
         print('gravado', saida, os.path.getsize(saida) // 1024, 'kB')
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
+    args = sys.argv[1:]
+    if not args:
         sys.exit(__doc__)
-    main(sys.argv[1], sys.argv[2:] or ORDEM)
+    if '--nomes' in args:
+        corte = args.index('--nomes')
+        main(args[:corte], args[corte + 1:])
+    else:
+        main(args, ORDEM)
