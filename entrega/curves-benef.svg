@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1512 1005" fill="#64A568" shape-rendering="geometricPrecision">
+  <!-- curvas da faixa de beneficios, reconstruidas como parabolas
+       continuas: no PDF achatado elas apareciam cortadas onde as fotos
+       e os titulos passavam por cima -->
+  <path d="M1181 -8 Q930.01 502 1057.85 1012 L1084.85 1012 Q957.01 502 1208 -8Z"/>
+  <path d="M736.45 -8 Q352.45 502 192.62 1012 L223.62 1012 Q383.45 502 767.45 -8Z"/>
+  <path d="M-25.95 410 Q91.05 711 -23.63 1012 L2.37 1012 Q117.05 711 0.05 410Z"/>
+</svg>

@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Carrossel contínuo — o mesmo mecanismo usado em "Benefícios Lifebox" e em
+   "Nossos valores".
+
+   A fileira corre para os dois lados: arrastando com o mouse, com o dedo, com
+   a roda ou pelo teclado. O conteúdo é triplicado e a posição volta ao bloco
+   do meio sempre que chega perto de uma ponta, de modo que nunca há fim.
+
+   Perto das bordas cada cartão vai desfocando e esmaecendo, e como isso é
+   recalculado a cada quadro da rolagem o efeito acompanha o arrasto.
+
+   Com a opcao 'desliza' (px por segundo) a fileira ainda corre sozinha, para
+   quem so olha a pagina ver todos os cartoes sem precisar arrastar.
+
+   Uso:  Carrossel(caixa, trilho, { recuo:124, passo:447, desliza:80 })
+   ========================================================================== */
+window.Carrossel = function (caixa, trilho, opcoes) {
+  'use strict';
+  if (!caixa || !trilho) return null;
+  opcoes = opcoes || {};
+
+  /* a fileira ocupa a largura do palco, mas numa tela mais larga ela sangra
+     para os lados (ver .sangra no CSS) - entao a medida util e a caixa */
+  function largura() { return caixa.clientWidth || 1512; }
+  function sangra() {
+    return parseFloat(getComputedStyle(caixa).getPropertyValue('--sangra')) || 0;
+  }
+  var ZONA    = opcoes.zona || 430;      /* faixa onde o desfoque age */
+  var MAX     = opcoes.desfoque == null ? 12 : opcoes.desfoque;   /* desfoque máximo, px */
+  var ESMAECE = opcoes.esmaece == null ? 0.55 : opcoes.esmaece;   /* quanto apaga */
+  /* 'borda': mede a distância do centro do cartão até a borda do palco.
+     'fora' : mede quanto do cartão já saiu do palco - serve para fileiras que
+              em repouso já nascem com um cartão cortado pela moldura, como a
+              de "Nossos valores", que assim fica igual ao documento parada. */
+  var MODO    = opcoes.modo || 'borda';
+  var recuo   = opcoes.recuo || 0;       /* enquadramento inicial do documento */
+  var passo   = opcoes.passo || 447;     /* salto de uma seta do teclado */
+  var DESLIZA = opcoes.desliza || 0;     /* deslize automatico, px por segundo */
+
+  /* --- triplica os cartões para o laço ---------------------------------- */
+  var originais = Array.prototype.slice.call(trilho.children);
+  function bloco() {
+    var frag = document.createDocumentFragment();
+    originais.forEach(function (c) {
+      var copia = c.cloneNode(true);
+      copia.setAttribute('aria-hidden', 'true');
+      Array.prototype.forEach.call(copia.querySelectorAll('img'), function (i) { i.alt = ''; });
+      /* a copia e decorativa: nao pode receber foco, senao o tabulador
+         percorreria a mesma fileira tres vezes */
+      if (copia.hasAttribute('tabindex')) copia.setAttribute('tabindex', '-1');
+      Array.prototype.forEach.call(
+        copia.querySelectorAll('a,button,input,select,textarea,[tabindex]'),
+        function (f) { f.setAttribute('tabindex', '-1'); });
+      frag.appendChild(copia);          /* mantém a ordem original */
+    });
+    return frag;
+  }
+  trilho.insertBefore(bloco(), trilho.firstChild);   /* cópia à esquerda */
+  trilho.appendChild(bloco());                       /* cópia à direita  */
+
+  var cartoes = Array.prototype.slice.call(trilho.children);
+  var umBloco = 0;
+  function medir() {
+    /* a distancia entre um cartao e o seu clone tres blocos adiante; usar
+       scrollWidth/3 erraria pela metade de um intervalo, porque a fileira tem
+       um intervalo a menos que o numero de cartoes */
+    umBloco = cartoes[originais.length].offsetLeft - cartoes[0].offsetLeft;
+  }
+
+  function centraliza() {
+    medir();
+    /* o recuo foi medido no documento, com a fileira do tamanho do palco. Com
+       a sangra a caixa comeca --sangra px a esquerda, entao descontar essa
+       sobra da rolagem mantem os cartoes na mesma posicao do palco - e o que
+       sobra para os lados sao os vizinhos, como convem a um carrossel */
+    caixa.scrollLeft = umBloco + recuo - sangra();
+    pinta();
+  }
+
+  function reenquadra() {
+    if (!umBloco) return;
+    if (caixa.scrollLeft < umBloco * 0.5)      caixa.scrollLeft += umBloco;
+    else if (caixa.scrollLeft > umBloco * 1.5) caixa.scrollLeft -= umBloco;
+  }
+
+  /* --- laterais desfocadas ---------------------------------------------- */
+  var pedido = 0;
+  function pinta() {
+    pedido = 0;
+    var rolagem = caixa.scrollLeft;
+    for (var i = 0; i < cartoes.length; i++) {
+      var c = cartoes[i];
+      var esq = c.offsetLeft - rolagem, dir = esq + c.offsetWidth, t, L = largura();
+      if (MODO === 'fora') {
+        var fora = Math.max(0, -esq, dir - L) / c.offsetWidth;
+        t = Math.min(1, Math.max(0, (fora - 0.5) / 0.42));
+      } else {
+        var meio = esq + c.offsetWidth / 2;
+        var borda = Math.min(meio, L - meio);
+        t = borda >= ZONA ? 0 : (borda <= 0 ? 1 : (ZONA - borda) / ZONA);
+      }
+      t = t * t;                                   /* começa suave */
+      c.style.setProperty('--desfoque', (t * MAX).toFixed(2) + 'px');
+      c.style.setProperty('--esmaece', (1 - t * ESMAECE).toFixed(3));
+    }
+  }
+  function agenda() {
+    if (pedido) return;
+    pedido = window.requestAnimationFrame ? requestAnimationFrame(pinta) : setTimeout(pinta, 16);
+  }
+
+  caixa.addEventListener('scroll', function () { reenquadra(); agenda(); }, { passive: true });
+
+  /* --- arrastar com o ponteiro ------------------------------------------ */
+  /* o palco inteiro é escalado, então o deslocamento do ponteiro precisa ser
+     convertido de pixels de tela para pixels do projeto */
+  var arrastando = false, x0 = 0, s0 = 0, moveu = 0;
+  function escala() { return caixa.getBoundingClientRect().width / largura() || 1; }
+
+  caixa.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    /* no toque quem rola e o proprio navegador: a caixa tem overflow-x:auto,
+       com inercia e efeito de borda. Arrastar tambem por script somaria os
+       dois deslocamentos e a fileira andaria o dobro do dedo. */
+    if (e.pointerType === 'touch') return;
+    arrastando = true; moveu = 0;
+    x0 = e.clientX; s0 = caixa.scrollLeft;
+    caixa.classList.add('arrastando');
+    caixa.setPointerCapture(e.pointerId);
+  });
+
+  caixa.addEventListener('pointermove', function (e) {
+    if (!arrastando) return;
+    var d = (e.clientX - x0) / escala();
+    moveu = Math.max(moveu, Math.abs(d));
+    caixa.scrollLeft = s0 - d;
+    if (e.pointerType === 'mouse') e.preventDefault();
+  });
+
+  function solta(e) {
+    if (!arrastando) return;
+    arrastando = false;
+    caixa.classList.remove('arrastando');
+    try { caixa.releasePointerCapture(e.pointerId); } catch (_) {}
+  }
+  caixa.addEventListener('pointerup', solta);
+  caixa.addEventListener('pointercancel', solta);
+  /* um arrasto não deve virar clique num link/foto */
+  caixa.addEventListener('click', function (e) {
+    if (moveu > 6) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+
+  /* --- roda do mouse: rolagem vertical vira horizontal ------------------- */
+  caixa.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    caixa.scrollLeft += e.deltaY;
+    e.preventDefault();
+  }, { passive: false });
+
+  /* --- teclado ---------------------------------------------------------- */
+  caixa.tabIndex = 0;
+  caixa.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { caixa.scrollLeft += passo; e.preventDefault(); }
+    if (e.key === 'ArrowLeft')  { caixa.scrollLeft -= passo; e.preventDefault(); }
+  });
+
+  /* --- deslize contínuo -------------------------------------------------- */
+  /* a fileira anda sozinha para que todos os cartões passem pela tela sem
+     exigir arrasto. Ela para sempre que o visitante toma conta dela (ponteiro
+     em cima, foco no teclado, arrasto), quando sai da tela, quando a aba fica
+     escondida, e nunca começa para quem pediu menos movimento no sistema. */
+  var menosMovimento = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (DESLIZA && !(menosMovimento && menosMovimento.matches)) {
+    var emCima = false, naTela = true, resto = 0, ultimo = 0;
+
+    /* Com mouse, entrar e sair da fileira basta. No toque nao ha "sair": um
+       pointerleave pode nunca chegar, e a fileira ficaria parada para sempre
+       depois do primeiro toque. Entao o dedo pausa e um relogio retoma. */
+    var RETOMA = 2500, relogio = 0;
+    function pausa()  { clearTimeout(relogio); emCima = true; }
+    function retoma() { clearTimeout(relogio); relogio = setTimeout(function () { emCima = false; }, RETOMA); }
+
+    caixa.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') pausa(); });
+    caixa.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') emCima = false; });
+    caixa.addEventListener('pointerdown',  pausa);
+    caixa.addEventListener('pointerup',    function (e) { if (e.pointerType !== 'mouse') retoma(); });
+    caixa.addEventListener('pointercancel',function (e) { if (e.pointerType !== 'mouse') retoma(); });
+    caixa.addEventListener('touchend',     retoma);
+    /* a caixa tem tabindex, entao um toque tambem lhe da foco - e foco por
+       toque nunca sai sozinho. Pausar por foco so vale quando ele veio do
+       teclado, que e quando o :focus-visible aparece; o toque ja e tratado
+       acima, com o relogio que retoma. */
+    caixa.addEventListener('focusin', function (e) {
+      try { if (e.target.matches && !e.target.matches(':focus-visible')) return; } catch (_) {}
+      pausa();
+    });
+    caixa.addEventListener('focusout',     function () { emCima = false; });
+
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entradas) {
+        naTela = entradas[0].isIntersecting;
+      }).observe(caixa);
+    }
+
+    var anda = function (agora) {
+      requestAnimationFrame(anda);
+      var dt = ultimo ? Math.min(100, agora - ultimo) : 0;   /* ignora o salto de uma aba que volta */
+      ultimo = agora;
+      if (!dt || emCima || arrastando || !naTela || document.hidden) return;
+      /* scrollLeft arredonda em alguns navegadores: o resto fracionário fica
+         guardado, senão um deslize lento não sairia do lugar */
+      resto += DESLIZA * dt / 1000;
+      var inteiro = Math.floor(resto);
+      if (!inteiro) return;
+      resto -= inteiro;
+      caixa.scrollLeft += inteiro;
+    };
+    requestAnimationFrame(anda);
+  }
+
+  centraliza();
+  window.addEventListener('resize', function () { medir(); agenda(); }, { passive: true });
+
+  /* enquanto a fileira está escondida todas as medidas dão zero, e o
+     enquadramento de repouso sai errado; guardar a instância permite
+     reenquadrá-la assim que ela aparece */
+  var api = { centraliza: centraliza, medir: medir, pinta: pinta, cartoes: cartoes, trilho: trilho };
+  (window.Carrosseis = window.Carrosseis || []).push(api);
+  return api;
+};

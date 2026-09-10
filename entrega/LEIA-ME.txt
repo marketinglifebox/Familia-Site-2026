@@ -1,0 +1,34 @@
+SITE FAMILIA LIFEBOX
+====================
+
+Tudo o que o navegador precisa esta nesta pasta, num nivel so, sem subpastas
+e sem nenhuma etapa de build.
+
+  index.html ............ pagina inicial
+  quem-somos.html ....... quem somos / habitos e rituais
+  valores.html .......... missao, visao e valores
+  trabalhe-conosco.html . vagas
+
+  estilo.css ............ folha de estilo unica, ja compilada
+  *.js .................. os comportamentos (carrosseis, transicoes, painel
+                          de habitos, escala do palco)
+  *.woff2 ............... as fontes, servidas da propria pasta
+  *.jpg *.png *.svg ..... imagens e vetores
+
+COMO USAR
+---------
+Para publicar: suba o conteudo desta pasta para a raiz do site. Qualquer
+hospedagem de arquivos estaticos serve.
+
+Para abrir no computador: prefira servir por HTTP em vez de dar dois cliques
+no arquivo. Abrindo por file:// o navegador bloqueia as fontes por politica de
+origem e a pagina aparece com as fontes trocadas. Um jeito rapido:
+
+    python3 -m http.server 8000
+
+e abrir http://localhost:8000
+
+TROCAR UMA IMAGEM
+-----------------
+Basta substituir o arquivo mantendo o mesmo nome. As fotos dos beneficios que
+ainda faltam entram sozinhas ao serem gravadas como ben-<nome>.jpg.

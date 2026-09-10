@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valores — Família Lifebox</title>
+<meta name="description" content="Missão, visão e valores do Grupo Lifebox.">
+<link rel="stylesheet" href="estilo.css">
+<script>document.documentElement.classList.remove('no-js');
+/* a pagina que veio de um clique ja nasce coberta pela bola da transicao,
+   antes da primeira pintura */
+(function(){try{var m=sessionStorage.getItem('transicao');if(!m)return;var p=m.split(',');
+var r=document.documentElement;r.style.setProperty('--tx',p[0]);r.style.setProperty('--ty',p[1]);
+r.classList.add('transicao','chega','sem-carregando');
+/* rede de seguranca: se transicao.js nao carregar, a pagina nao pode ficar
+   presa atras da bola */
+setTimeout(function(){r.classList.remove('transicao','chega');},3000);}catch(e){}})();</script>
+</head>
+<body class="bg-cream">
+<!-- tela de carregamento: sai sozinha quando a pagina esta inteira -->
+<div class="carregando" id="carregando" role="status" aria-live="polite">
+  <div class="carregando-anel" aria-hidden="true"></div>
+  <span class="sr-only-abs">Carregando…</span>
+</div>
+
+
+<!-- ==========================================================================
+     PALCO 1512 x 2832 px — mesma prancha do documento original (página 3)
+     ========================================================================== -->
+<div class="stage-wrap" id="stageWrap">
+<main class="stage stage--valores" id="stage">
+
+  <!-- curvas decorativas: camada de fundo, atrás de todo o resto -->
+  <img src="curves-valores.svg" alt="" class="fundo absolute left-0 top-0 w-[1512px] h-[2832px]">
+
+  <!-- ====================================================================
+       1. CABEÇALHO AZUL
+       ==================================================================== -->
+  <header>
+    <div class="sangra absolute left-0 top-0 w-[1512px] h-[106px] bg-blue-head"></div>
+
+    <a href="index.html" class="logo logo--cream left-[227px] top-[25.8px] scale-[.6]" aria-label="Família Lifebox — início">
+      <span class="logo-familia">FAMÍLIA</span>
+      <img class="logo-lifebox" src="logo-lifebox-cream.svg" alt="">
+      <img class="logo-mark"    src="logo-mark-cream.svg"    alt="">
+    </a>
+
+    <nav>
+      <a href="quem-somos.html"          class="nav-link t cond font-medium text-cream left-[847px]  top-[44.5px] text-[24.6px] tracking-[0.64px]">QUEM SOMOS</a>
+      <a href="valores.html" aria-current="page" class="nav-link t cond font-medium text-cream left-[1026px] top-[44.5px] text-[24.6px] tracking-[1.098px]">VALORES</a>
+      <a href="trabalhe-conosco.html" class="nav-botao absolute left-[1133px] top-[30px] w-[251px] h-[52px] bg-orange"></a>
+      <span class="nav-botao-rotulo t cond font-medium text-cream left-[1150px] top-[44.5px] text-[24.6px] tracking-[1.077px] pointer-events-none">TRABALHE CONOSCO</span>
+    </nav>
+  </header>
+
+  <!-- ====================================================================
+       2. NOSSA MISSÃO
+       ==================================================================== -->
+  <span id="missao"  class="absolute left-0 top-[330px]  w-px h-px" aria-hidden="true"></span>
+  <section>
+    <h1 class="t cond font-bold text-orange left-[410.93px] top-[398.5px] text-[117.9px] tracking-[1.473px]">NOSSA MISSÃO</h1>
+
+    <p class="t larg text-ink-soft left-[343.02px] top-[539.72px] text-[29.85px]">Proporcionar clientes exigentes experiências únicas através de</p>
+    <p class="t larg text-ink-soft left-[354.51px] top-[572.72px] text-[29.85px] tracking-[-0.315px]">ambiente, atendimento, produto de alta qualidade e agilidade</p>
+
+    <img src="valores-missao.jpg" alt="Atendente da loja Lifebox com a maquininha de pagamento"
+         class="absolute left-[284px] top-[630px] w-[988px] h-[494px] object-cover">
+  </section>
+
+  <!-- ====================================================================
+       3. NOSSA VISÃO
+       ==================================================================== -->
+  <span id="visao"   class="absolute left-0 top-[1175px] w-px h-px" aria-hidden="true"></span>
+  <section>
+    <h2 class="t cond font-bold text-orange left-[431.93px] top-[1243.5px] text-[117.9px] tracking-[1.97px]">NOSSA VISÃO</h2>
+
+    <p class="t cond text-ink-soft left-[387.8px] top-[1364.77px] text-[39.92px]">Ser uma marca que gere emoções positivas nas</p>
+    <p class="t cond text-ink-soft left-[471.81px] top-[1392.77px] text-[39.92px]">pessoas quando vistas ou lembradas</p>
+
+    <img src="valores-visao.jpg" alt="Cliente comendo um hambúrguer Lifebox no salão"
+         class="absolute left-[279px] top-[1452px] w-[988px] h-[493px] object-cover">
+  </section>
+
+  <!-- ====================================================================
+       4. NOSSOS VALORES
+       ==================================================================== -->
+  <span id="valores" class="absolute left-0 top-[2113px] w-px h-px" aria-hidden="true"></span>
+  <section>
+    <h2 class="t cond font-bold text-orange left-[350.93px] top-[2181.5px] text-[117.9px] tracking-[0.5px]">NOSSOS VALORES</h2>
+
+    <!-- carrossel contínuo; parado mostra ícone e nome, e o cartão sob o
+         ponteiro fica azul e abre a descrição -->
+    <div class="valor-carrossel sangra top-[2362px] h-[259px]" id="valorCarrossel" role="region" aria-label="Nossos valores">
+      <div class="valor-trilho" id="valorTrilho">
+        <article class="valor" tabindex="0">
+          <span class="valor-icone"><img src="auto-desenvolvimento.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">AUTO</span>
+          <span class="valor-sub">DESENVOLVIMENTO</span>
+          <p class="valor-desc">Capacidade de conhecer sua identidade, valores, pontos fortes e fracos, e buscar melhorar constantemente.</p>
+          </div>
+        </article>
+        <article class="valor valor--uma-linha valor--sem-texto" tabindex="0">
+          <span class="valor-icone"><img src="autorresponsabilidade.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">AUTORRESPONSABILIDADE</span>
+          <!-- descricao deste valor ainda nao entregue -->
+          </div>
+        </article>
+        <article class="valor valor--sem-texto" tabindex="0">
+          <span class="valor-icone"><img src="foco-no-resultado.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">FOCO</span>
+          <span class="valor-sub">NO RESULTADO</span>
+          <!-- descricao deste valor ainda nao entregue -->
+          </div>
+        </article>
+        <article class="valor valor--uma-linha" tabindex="0">
+          <span class="valor-icone"><img src="meritocracia.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">MERITOCRACIA</span>
+          <p class="valor-desc">Valorização baseada em resultados, premiando o esforço e desempenho, sem rivalidade. O sucesso de um não impede o crescimento do outro — todos podem ganhar.</p>
+          </div>
+        </article>
+        <article class="valor" tabindex="0">
+          <span class="valor-icone"><img src="inteligencia-emocional.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">INTELIGÊNCIA</span>
+          <span class="valor-sub">EMOCIONAL</span>
+          <p class="valor-desc">Habilidade de entender e gerir emoções, compreender as dos outros e lidar melhor com cada situação, mantendo o equilíbrio emocional e sabendo aplicar e receber feedbacks.</p>
+          </div>
+        </article>
+        <article class="valor" tabindex="0">
+          <span class="valor-icone"><img src="pensamento-positivo.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">PENSAMENTO</span>
+          <span class="valor-sub">POSITIVO</span>
+          <p class="valor-desc">Visão positiva, vendo oportunidades em dificuldades. Reforçar o positivo, praticar gratidão, aceitar o que não se pode controlar, celebrar pequenas conquistas e entender que a felicidade está na jornada.</p>
+          </div>
+        </article>
+        <article class="valor valor--uma-linha" tabindex="0">
+          <span class="valor-icone"><img src="respeito.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">RESPEITO</span>
+          <p class="valor-desc">Capacidade de agir com respeito, priorizando relações harmoniosas e um clima leve. Dar voz a todos, independentemente da função.</p>
+          </div>
+        </article>
+        <article class="valor valor--sem-texto" tabindex="0">
+          <span class="valor-icone"><img src="experiencia-do-cliente.png" alt=""></span>
+          <div class="valor-corpo">
+          <span class="valor-nome">EXPERIÊNCIA</span>
+          <span class="valor-sub">DO CLIENTE</span>
+          <!-- descricao deste valor ainda nao entregue -->
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- barra legal: fecha a página com os avisos de direitos -->
+  <footer class="barra-legal sangra top-[2832px] h-[312px]" aria-label="Avisos legais">
+    <div class="barra-legal-caixa">
+      <p class="legal-marca">
+        <span>Copyright © 2026 MTM BURGER. Todos os direitos reservados.</span>
+        <span>Todas as marcas registradas são propriedade dos seus respectivos donos.</span>
+      </p>
+      <hr class="legal-regua">
+      <div class="legal-colunas">
+        <p class="legal-texto">Todo o conteúdo deste site — textos, imagens, ilustrações, marcas,
+          logotipos, layout e código — pertence à MTM BURGER ou aos seus licenciantes e é protegido
+          pela Lei nº 9.610/1998, que trata de direitos autorais, e pela Lei nº 9.279/1996, que
+          trata de propriedade industrial. É proibida a reprodução, distribuição, exibição pública
+          ou modificação, total ou parcial, sem autorização prévia e por escrito.</p>
+        <p class="legal-texto">Os dados pessoais eventualmente coletados neste site são tratados
+          conforme a Lei nº 13.709/2018 — a Lei Geral de Proteção de Dados —, apenas para as
+          finalidades informadas no momento da coleta, e não são compartilhados com terceiros sem
+          base legal. As vagas divulgadas não constituem oferta de emprego nem promessa de
+          contratação.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+</div>
+
+<script src="carregando.js"></script>
+<script src="transicao.js"></script>
+<script src="main.js"></script>
+<script src="cliques.js"></script>
+<script src="carrossel.js"></script>
+<script src="valores.js"></script>
+</body>
+</html>
