@@ -1,7 +1,8 @@
 /* ==========================================================================
    Escala o palco para a largura da viewport, preservando exatamente as
    proporcoes do documento original. A altura vem do proprio palco - cada
-   pagina tem a sua (5577, 3486 e 2832 px) - e nao de um numero fixo.
+   pagina tem a sua - e nao de um numero fixo, para nao ficar desencontrada
+   do CSS quando uma pagina cresce.
    ========================================================================== */
 (function () {
   'use strict';

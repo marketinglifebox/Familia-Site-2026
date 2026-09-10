@@ -147,10 +147,16 @@ out.append(trab.replace('<div class="stage-wrap" id="wrapTrab"','<div class="sta
 out.append('''<script>
 /* --- escala dos dois palcos + navegacao entre as paginas ------------------ */
 (function(){
-  var paginas=[{wrap:'wrapHome',stage:'stage-wrapHome',h:5577},
-               {wrap:'wrapQuem',stage:'stage-wrapQuem',h:3486},
-               {wrap:'wrapValo',stage:'stage-wrapValo',h:2832},
-               {wrap:'wrapTrab',stage:'stage-wrapTrab',h:2310}];
+  /* a altura de cada palco vem do proprio palco, medida no navegador - o
+     numero ao lado e so reserva, para o caso de o palco ainda nao ter medido.
+     Repetir aqui a altura que esta no CSS ja custou caro uma vez: a barra
+     legal cresceu as quatro paginas, esta lista continuou nos valores antigos
+     e o wrap, que tem overflow:hidden, cortava fora tudo o que passasse da
+     medida velha. */
+  var paginas=[{wrap:'wrapHome',stage:'stage-wrapHome',h:5731},
+               {wrap:'wrapQuem',stage:'stage-wrapQuem',h:3680},
+               {wrap:'wrapValo',stage:'stage-wrapValo',h:3026},
+               {wrap:'wrapTrab',stage:'stage-wrapTrab',h:2504}];
   /* mesma regra do main.js: teto de 0,8 - o documento e uma prancha de
      apresentacao, e a 100% o texto fica grande demais para a distancia de
      monitor - e as faixas de cor cheia transbordam a sobra para encostar na
@@ -164,7 +170,7 @@ out.append('''<script>
       s.style.setProperty('--k',k);
       s.style.setProperty('--dx',(sobra/2).toFixed(2)+'px');
       s.style.setProperty('--sangra',(sobra/2/k).toFixed(2)+'px');
-      w.style.height=(p.h*k)+'px';
+      w.style.height=((s.offsetHeight||p.h)*k)+'px';
     });
   }
   function mostra(id, secao){
