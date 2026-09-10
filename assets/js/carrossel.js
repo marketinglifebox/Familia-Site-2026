@@ -119,6 +119,10 @@ window.Carrossel = function (caixa, trilho, opcoes) {
 
   caixa.addEventListener('pointerdown', function (e) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+    /* no toque quem rola e o proprio navegador: a caixa tem overflow-x:auto,
+       com inercia e efeito de borda. Arrastar tambem por script somaria os
+       dois deslocamentos e a fileira andaria o dobro do dedo. */
+    if (e.pointerType === 'touch') return;
     arrastando = true; moveu = 0;
     x0 = e.clientX; s0 = caixa.scrollLeft;
     caixa.classList.add('arrastando');
@@ -170,9 +174,27 @@ window.Carrossel = function (caixa, trilho, opcoes) {
   if (DESLIZA && !(menosMovimento && menosMovimento.matches)) {
     var emCima = false, naTela = true, resto = 0, ultimo = 0;
 
-    caixa.addEventListener('pointerenter', function () { emCima = true; });
-    caixa.addEventListener('pointerleave', function () { emCima = false; });
-    caixa.addEventListener('focusin',      function () { emCima = true; });
+    /* Com mouse, entrar e sair da fileira basta. No toque nao ha "sair": um
+       pointerleave pode nunca chegar, e a fileira ficaria parada para sempre
+       depois do primeiro toque. Entao o dedo pausa e um relogio retoma. */
+    var RETOMA = 2500, relogio = 0;
+    function pausa()  { clearTimeout(relogio); emCima = true; }
+    function retoma() { clearTimeout(relogio); relogio = setTimeout(function () { emCima = false; }, RETOMA); }
+
+    caixa.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') pausa(); });
+    caixa.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') emCima = false; });
+    caixa.addEventListener('pointerdown',  pausa);
+    caixa.addEventListener('pointerup',    function (e) { if (e.pointerType !== 'mouse') retoma(); });
+    caixa.addEventListener('pointercancel',function (e) { if (e.pointerType !== 'mouse') retoma(); });
+    caixa.addEventListener('touchend',     retoma);
+    /* a caixa tem tabindex, entao um toque tambem lhe da foco - e foco por
+       toque nunca sai sozinho. Pausar por foco so vale quando ele veio do
+       teclado, que e quando o :focus-visible aparece; o toque ja e tratado
+       acima, com o relogio que retoma. */
+    caixa.addEventListener('focusin', function (e) {
+      try { if (e.target.matches && !e.target.matches(':focus-visible')) return; } catch (_) {}
+      pausa();
+    });
     caixa.addEventListener('focusout',     function () { emCima = false; });
 
     if (window.IntersectionObserver) {
