@@ -98,7 +98,7 @@
   /* ---- Palco de 1512x5577px: escala proporcionalmente na viewport ------- */
   .stage-wrap{ position:relative; width:100%; overflow:hidden; }
   .stage{
-    position:relative; width:1512px; height:5922px;
+    position:relative; width:1512px; height:6022px;
     transform-origin:top left;
     transform:translateX(var(--dx,0px)) scale(var(--k,1));
     background:#FDF6EF;

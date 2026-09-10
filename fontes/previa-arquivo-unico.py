@@ -153,7 +153,7 @@ out.append('''<script>
      legal cresceu as quatro paginas, esta lista continuou nos valores antigos
      e o wrap, que tem overflow:hidden, cortava fora tudo o que passasse da
      medida velha. */
-  var paginas=[{wrap:'wrapHome',stage:'stage-wrapHome',h:5922},
+  var paginas=[{wrap:'wrapHome',stage:'stage-wrapHome',h:6022},
                {wrap:'wrapQuem',stage:'stage-wrapQuem',h:3798},
                {wrap:'wrapValo',stage:'stage-wrapValo',h:3144},
                {wrap:'wrapTrab',stage:'stage-wrapTrab',h:2622}];
