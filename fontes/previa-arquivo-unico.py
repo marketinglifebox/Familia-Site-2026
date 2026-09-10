@@ -57,6 +57,14 @@ def corpo(arquivo, wrapid):
             return m.group(0)
         return 'src="%s"'%b64(rel, MIME[ext])
     frag=re.sub(r'src="(assets/[^"]+)"', sub, frag)
+    # o data-foto dos beneficios aponta para a foto definitiva; quando ela ja
+    # existe, entra embutida tambem, senao o script trocaria o icone por um
+    # caminho relativo que nao resolve dentro do arquivo unico
+    def foto(m):
+        rel=m.group(1)
+        if not os.path.exists(ROOT+rel): return 'data-foto=""'
+        return 'data-foto="%s"'%b64(rel, MIME[os.path.splitext(rel)[1]])
+    frag=re.sub(r'data-foto="(assets/[^"]+)"', foto, frag)
     return frag
 
 home=corpo('index.html','wrapHome')

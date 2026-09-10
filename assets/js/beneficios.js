@@ -44,13 +44,23 @@
   var carrossel = window.Carrossel(caixa, trilho, { recuo: -159, passo: 447 });
 
   /* --- fotos ainda não entregues --------------------------------------- */
-  /* alguns benefícios ainda não têm foto; nesses o quadro recebe a marca da
-     casa em vez do ícone de imagem quebrada. Roda depois da triplicação para
-     alcançar também as cópias. */
+  /* doze benefícios ainda não têm foto e mostram, no lugar dela, um ícone
+     desenhado a partir do próprio título. O caminho da foto definitiva fica
+     em data-foto: assim que o arquivo existir, ele entra sozinho no lugar do
+     ícone - sem mexer no HTML. A troca só acontece depois que a foto carrega,
+     para o quadro nunca piscar vazio.
+
+     Roda depois da triplicação do carrossel para alcançar também as cópias. */
   Array.prototype.forEach.call(trilho.querySelectorAll('.benef-foto img'), function (img) {
     function falta() { img.parentNode.classList.add('sem-foto'); }
     img.addEventListener('error', falta);
     if (img.complete && !img.naturalWidth) falta();
+
+    var foto = img.getAttribute('data-foto');
+    if (!foto) return;
+    var sonda = new Image();
+    sonda.onload = function () { img.src = foto; };
+    sonda.src = foto;
   });
 
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
