@@ -105,7 +105,9 @@
   }
   /* fallback sem JS */
   @supports (zoom:1){
-    .no-js .stage{ transform:none; zoom:min(.8, calc(100vw / 1512)); margin:0 auto; }
+    /* 100vw inclui a barra de rolagem e sobraria alguns pixels para o lado;
+       o palco herda a largura do wrap, que ja e a area util */
+    .no-js .stage{ transform:none; zoom:min(.8, calc(100% / 1512)); margin:0 auto; }
   }
 
   /* ---- Faixas que encostam na borda da tela ----------------------------
