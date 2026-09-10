@@ -98,7 +98,7 @@
   /* ---- Palco de 1512x5577px: escala proporcionalmente na viewport ------- */
   .stage-wrap{ position:relative; width:100%; overflow:hidden; }
   .stage{
-    position:relative; width:1512px; height:5577px;
+    position:relative; width:1512px; height:5731px;
     transform-origin:top left;
     transform:translateX(var(--dx,0px)) scale(var(--k,1));
     background:#FDF6EF;
@@ -358,9 +358,9 @@
   /* ======================================================================
      PAGINA "QUEM SOMOS" (pagina 2)
      ====================================================================== */
-  .stage--quem{ height:3486px; }
-  .stage--valores{ height:2832px; }
-  .stage--trabalhe{ height:2310px; }
+  .stage--quem{ height:3680px; }
+  .stage--valores{ height:3026px; }
+  .stage--trabalhe{ height:2504px; }
 
   /* --- bloco laranja com brilho radial no canto superior direito -------- */
   .bloco-laranja{
@@ -612,6 +612,36 @@
     opacity:var(--esmaece);
   }
   .benef-carrossel.arrastando .benef-card{ will-change:filter, opacity; }
+
+  /* ======================================================================
+     BARRA LEGAL — fecha as quatro páginas
+
+     O documento traz um aviso de copyright só na página inicial, solto sobre
+     o creme do rodapé. Esta barra acrescenta os avisos que faltavam e repete
+     o fecho nas outras três, que não tinham nenhum. Ela é laranja de
+     propósito: na inicial a curva verde do rodapé termina no topo dela, e com
+     um fundo próprio a curva parece passar por trás, em vez de ser cortada.
+
+     Na inicial a linha de copyright do documento continua onde estava, então
+     lá a barra leva só os parágrafos novos (ver .barra-legal--so-texto).
+     ====================================================================== */
+  .barra-legal{
+    position:absolute; left:0; width:1512px;
+    background:#E86532; color:#FDF6EF;
+    font-family:'Fira Sans Condensed', 'Arial Narrow', sans-serif;
+  }
+  .barra-legal-caixa{ position:absolute; left:111px; width:1263px; top:34px; }
+  .barra-legal--so-texto .barra-legal-caixa{ top:30px; }
+
+  .legal-marca{
+    display:flex; justify-content:space-between; gap:48px;
+    margin:0 0 18px; font-size:14.47px; line-height:1; letter-spacing:.6px;
+  }
+  .legal-texto{
+    margin:0; font-size:12.6px; line-height:1.62; letter-spacing:.18px;
+    opacity:.88;
+  }
+  .legal-texto + .legal-texto{ margin-top:12px; }
 
   /* ======================================================================
      PAGINA "TRABALHE CONOSCO" (pagina 4)
